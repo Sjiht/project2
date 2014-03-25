@@ -24,7 +24,7 @@ int fieldLetter6Solved;
 int goodTries;
 int badTries;
 int gameEnd;
-int endTries = 6;
+int endTries = 10;
 
 // Create empty string variables
 NSString *badLetters = @"";
@@ -152,8 +152,13 @@ NSString *word = @"";
         
         if (!(badTries < endTries)) {
             // Show Alert (lose)
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Ahhh!" message:@"You lose!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alert show];
+            NSString *alertString = [NSString stringWithFormat:@"You lose! The word was: %@", word];
+            UIAlertView *myAlert = [[UIAlertView alloc] initWithTitle:@"Ahh!"
+                                                              message:alertString
+                                                             delegate:self
+                                                    cancelButtonTitle:@"OK"
+                                                    otherButtonTitles:nil];
+            [myAlert show];
             gameEnd = 1;
         }
     }
