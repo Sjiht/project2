@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7675150F18E17C400010FA4E /* wordList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7675150E18E17C400010FA4E /* wordList.plist */; };
 		CD31E31C157A28ED000FEC88 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD31E31B157A28ED000FEC88 /* UIKit.framework */; };
 		CD31E31E157A28ED000FEC88 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD31E31D157A28ED000FEC88 /* Foundation.framework */; };
 		CD31E320157A28ED000FEC88 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD31E31F157A28ED000FEC88 /* CoreGraphics.framework */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7675150E18E17C400010FA4E /* wordList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = wordList.plist; sourceTree = "<group>"; };
 		CD31E317157A28ED000FEC88 /* project2-4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "project2-4.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD31E31B157A28ED000FEC88 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CD31E31D157A28ED000FEC88 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -152,6 +154,7 @@
 				CD31E324157A28ED000FEC88 /* InfoPlist.strings */,
 				CD31E327157A28ED000FEC88 /* main.m */,
 				CD31E329157A28ED000FEC88 /* project2-4-Prefix.pch */,
+				7675150E18E17C400010FA4E /* wordList.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 				CD31E37C157AD420000FEC88 /* 5.png in Resources */,
 				CD31E37D157AD420000FEC88 /* 6.png in Resources */,
 				CD31E37E157AD420000FEC88 /* 7.png in Resources */,
+				7675150F18E17C400010FA4E /* wordList.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -473,6 +477,7 @@
 				CD31E34F157A28EE000FEC88 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CD31E350157A28EE000FEC88 /* Build configuration list for PBXNativeTarget "project2-4Tests" */ = {
 			isa = XCConfigurationList;
@@ -481,6 +486,7 @@
 				CD31E352157A28EE000FEC88 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

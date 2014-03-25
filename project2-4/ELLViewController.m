@@ -28,16 +28,30 @@ int endTries = 6;
 
 // Create empty string variables
 NSString *badLetters = @"";
-
+NSString *word = @"";
 
 - (NSString *)chooseWord {
-    NSString *word = @"banana";
+    NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"wordList" ofType:@"plist"]];
+    NSArray *array2 = [dictionary valueForKey:@"array"];
+    NSInteger *randomIndex = arc4random() % [array2 count];
+    NSString *word = [array2 objectAtIndex:randomIndex];
+    NSLog(@"%@", word);
     return word;
 }
 
+- (NSString *)checkWord {
+    if (word == @"") {
+        word = [self chooseWord];
+        return word;
+    }
+    else {
+        return word;
+    }
+    
+}
 - (IBAction)change:(id)sender {
     if (gameEnd != 1) {
-        NSString *word = [self chooseWord];
+        word = [self checkWord];
         NSString *wordLetter1 = [word substringWithRange:NSMakeRange(0, 1)];
         NSString *wordLetter2 = [word substringWithRange:NSMakeRange(1, 1)];
         NSString *wordLetter3 = [word substringWithRange:NSMakeRange(2, 1)];
@@ -85,10 +99,11 @@ NSString *badLetters = @"";
             goodTries++;
         }
         else {
-            //if (strstr(badLetters, fieldLetter)) {
-            badTries++;
-            badLetters = [NSString stringWithFormat:@"%@%@", badLetters, fieldLetter];
-            
+            // Check if pressed letter has already been pressed
+            if ([badLetters rangeOfString:fieldLetter].location == NSNotFound) {
+                badTries++;
+                badLetters = [NSString stringWithFormat:@"%@%@", badLetters, fieldLetter];
+            }
             // Display next image
             if (badTries == 1) {
                 UIImage *hangmanImageNow = [UIImage imageNamed:@"2.png"];
@@ -170,6 +185,9 @@ NSString *badLetters = @"";
     
     // Reset string variables
     badLetters = @"";
+    
+    // Reset word
+    word = @"";
     
     // Display basic image
     UIImage *hangmanImageNow = [UIImage imageNamed:@"1.png"];
