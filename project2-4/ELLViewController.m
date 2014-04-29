@@ -24,7 +24,7 @@ int fieldLetter6Solved;
 int goodTries;
 int badTries;
 int gameEnd;
-int endTries = 10;
+int endTries = 6;
 
 // Create empty string variables
 NSString *badLetters = @"";
