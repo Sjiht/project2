@@ -30,8 +30,9 @@ NSString *word = @"";
 
 // Create booleans
 bool gameEnd;
+bool evilGame = true;
 
-- (NSString *)chooseWord {
+- (NSString *)chooseNormalWord {
     // Put all the words from the plist in an array
     NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"wordList" ofType:@"plist"]];
     NSArray *array2 = [dictionary valueForKey:@"array"];
@@ -49,9 +50,70 @@ bool gameEnd;
     return word;
 }
 
+- (NSString *)chooseEvilWord {
+    // Put all the words from the plist in an array
+    NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"wordList" ofType:@"plist"]];
+    NSArray *array2 = [dictionary valueForKey:@"array"];
+    NSMutableArray *array3 = [[NSMutableArray alloc] init];
+    for (NSString *key in array2) {
+        int length = [key length];
+        if (length == wordLength) {
+            [array3 addObject:key];
+        }
+    }
+    
+    // uek
+    // iuk
+    // iok
+    // dfk
+    // ydk
+    // ejf
+    // aaa
+    // abc
+    // abd
+    
+    // eerst de woorden pakken waar de letters op de juiste plek zitten die al getypt zijn.
+    
+    // array maken die bestaat uit x elementen. x is het aantal letters van het woord.
+    // als een letter op die plek hoort, zet hem in de array op de juiste plek (bijvoorbeeld 3).
+    // array3 als eerste alleen de letters woorden pakken die de letters al op de juiste plek hebben
+    
+    // 1. geval typt "A". kijk of groep met A in woord groter is dan groep met A niet in woord. zo ja: neem die groep. zo nee, neem de groep zonder A. In geval even groot, neem zonder A.
+    
+    int fieldLength = [inputField.text length];
+    NSString *fieldLetter = @"";
+    fieldLetter = [inputField.text substringWithRange:NSMakeRange(fieldLength-1, 1)];
+    
+    NSMutableArray *array4 = [[NSMutableArray alloc] init];
+    NSMutableArray *array5 = [[NSMutableArray alloc] init];
+    NSArray *array6 = [[NSArray alloc] init];
+    
+    for (NSString *word in array3) {
+        if ([word rangeOfString:fieldLetter].location == NSNotFound) {
+            [array4 addObject:word];
+        }
+        else if([word rangeOfString:fieldLetter].location != NSNotFound) {
+            [array5 addObject:word];
+        }
+    }
+    
+    if ([array4 count] >= [array5 count]) {
+        array6 = array4;
+    }
+    else {
+        array6 = array5;
+    }
+    
+    // Pick a random word from the array
+    NSInteger *randomIndex = arc4random() % [array6 count];
+    NSString *word = [array6 objectAtIndex:randomIndex];
+    NSLog(word);
+    return word;
+}
+
 - (NSString *)checkWord {
     if (word == @"") {
-        word = [self chooseWord];
+        word = [self chooseNormalWord];
         return word;
     }
     else {
@@ -61,7 +123,14 @@ bool gameEnd;
 }
 - (IBAction)change:(id)sender {
     if (gameEnd != true) {
-        word = [self checkWord];
+        
+        if (evilGame == true) {
+            word = [self chooseEvilWord];
+        }
+        else if (evilGame == false) {
+            word = [self checkWord];
+        }
+        
         int fieldLength = [inputField.text length];
         NSString *fieldLetter = @"";
         fieldLetter = [inputField.text substringWithRange:NSMakeRange(fieldLength-1, 1)];

@@ -29,6 +29,9 @@
 		CD31E37C157AD420000FEC88 /* 5.png in Resources */ = {isa = PBXBuildFile; fileRef = CD31E375157AD420000FEC88 /* 5.png */; };
 		CD31E37D157AD420000FEC88 /* 6.png in Resources */ = {isa = PBXBuildFile; fileRef = CD31E376157AD420000FEC88 /* 6.png */; };
 		CD31E37E157AD420000FEC88 /* 7.png in Resources */ = {isa = PBXBuildFile; fileRef = CD31E377157AD420000FEC88 /* 7.png */; };
+		CD78F378191ABA6600BF1EED /* ELLHomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD78F377191ABA6600BF1EED /* ELLHomeController.m */; };
+		CD78F37C191ABA9300BF1EED /* ELLHighscoresController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD78F37B191ABA9300BF1EED /* ELLHighscoresController.m */; };
+		CDD4C973191AC8810067477F /* View.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDD4C972191AC8810067477F /* View.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +73,11 @@
 		CD31E375157AD420000FEC88 /* 5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 5.png; sourceTree = "<group>"; };
 		CD31E376157AD420000FEC88 /* 6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 6.png; sourceTree = "<group>"; };
 		CD31E377157AD420000FEC88 /* 7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 7.png; sourceTree = "<group>"; };
+		CD78F376191ABA6600BF1EED /* ELLHomeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELLHomeController.h; sourceTree = "<group>"; };
+		CD78F377191ABA6600BF1EED /* ELLHomeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELLHomeController.m; sourceTree = "<group>"; };
+		CD78F37A191ABA9300BF1EED /* ELLHighscoresController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELLHighscoresController.h; sourceTree = "<group>"; };
+		CD78F37B191ABA9300BF1EED /* ELLHighscoresController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELLHighscoresController.m; sourceTree = "<group>"; };
+		CDD4C972191AC8810067477F /* View.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = View.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +107,7 @@
 		CD31E30C157A28ED000FEC88 = {
 			isa = PBXGroup;
 			children = (
+				CDD4C972191AC8810067477F /* View.storyboard */,
 				CD31E321157A28ED000FEC88 /* project2-4 */,
 				CD31E342157A28EE000FEC88 /* project2-4Tests */,
 				CD31E31A157A28ED000FEC88 /* Frameworks */,
@@ -134,6 +143,10 @@
 				CD31E32D157A28ED000FEC88 /* ELLViewController.h */,
 				CD31E32E157A28ED000FEC88 /* ELLViewController.m */,
 				CD31E330157A28EE000FEC88 /* ELLViewController_iPhone.xib */,
+				CD78F376191ABA6600BF1EED /* ELLHomeController.h */,
+				CD78F377191ABA6600BF1EED /* ELLHomeController.m */,
+				CD78F37A191ABA9300BF1EED /* ELLHighscoresController.h */,
+				CD78F37B191ABA9300BF1EED /* ELLHighscoresController.m */,
 				CD31E333157A28EE000FEC88 /* ELLViewController_iPad.xib */,
 				CD31E322157A28ED000FEC88 /* Supporting Files */,
 			);
@@ -261,6 +274,7 @@
 				CD31E37D157AD420000FEC88 /* 6.png in Resources */,
 				CD31E37E157AD420000FEC88 /* 7.png in Resources */,
 				76FAEF2118E18C7A00E03CB4 /* wordList.plist in Resources */,
+				CDD4C973191AC8810067477F /* View.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,6 +312,8 @@
 				CD31E328157A28ED000FEC88 /* main.m in Sources */,
 				CD31E32C157A28ED000FEC88 /* ELLAppDelegate.m in Sources */,
 				CD31E32F157A28EE000FEC88 /* ELLViewController.m in Sources */,
+				CD78F378191ABA6600BF1EED /* ELLHomeController.m in Sources */,
+				CD78F37C191ABA9300BF1EED /* ELLHighscoresController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,6 +425,7 @@
 				GCC_PREFIX_HEADER = "project2-4/project2-4-Prefix.pch";
 				INFOPLIST_FILE = "project2-4/project2-4-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -420,6 +437,7 @@
 				GCC_PREFIX_HEADER = "project2-4/project2-4-Prefix.pch";
 				INFOPLIST_FILE = "project2-4/project2-4-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
