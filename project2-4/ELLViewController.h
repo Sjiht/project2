@@ -13,8 +13,6 @@
     IBOutlet UITextField *inputField;
     
     // Buttons
-    UIButton letterArray;
-    
     IBOutlet UIButton *newgameButton;
     IBOutlet UIButton *letter1Button;
     IBOutlet UIButton *letter2Button;

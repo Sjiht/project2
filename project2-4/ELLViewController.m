@@ -223,11 +223,11 @@ NSString *word = @"";
     //}
     
     for (int i=1; i<=wordLength; i++) {
+        
         UIButton *testButton = [UIButton buttonWithType: UIButtonTypeRoundedRect];
         testButton.frame = CGRectMake(x, 25, 30, 30);
         [self.view addSubview:testButton];
         self->testButton = testButton;
-    
         [self.view addSubview:letter1Button];
         self->letter1Button = letter1Button;
         x = x + 30 + startWidth;
