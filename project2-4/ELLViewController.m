@@ -18,7 +18,7 @@ int goodTries;
 int badTries;
 int gameEnd;
 int endTries = 6;
-int wordLength = 6;
+int wordLength = 4;
 NSMutableArray *wordLetterArray;
 
 // Create empty string variables
@@ -33,7 +33,6 @@ NSString *word = @"";
     // Pick a random word from the array
     NSInteger *randomIndex = arc4random() % [array2 count];
     NSString *word = [array2 objectAtIndex:randomIndex];
-    NSLog(@"%@", word);
     return word;
 }
 
@@ -54,7 +53,9 @@ NSString *word = @"";
         NSString *fieldLetter = @"";
         fieldLetter = [inputField.text substringWithRange:NSMakeRange(fieldLength-1, 1)];
         
-        for (int i=0; i<wordLength; i++){
+        bool correctLetterCheck = false;
+        
+        for (int i=0; i<wordLength; i++) {
             NSString *wordLetter = [word substringWithRange:NSMakeRange(i, 1)];
                 
             // If current letter is equal to this particular letter
@@ -62,42 +63,25 @@ NSString *word = @"";
                 [[self.lettersArray objectAtIndex:i] setTitle:fieldLetter forState:(UIControlStateNormal)];
                 fieldLettersSolved++;
                 goodTries++;
+                correctLetterCheck = true;
             }
         }
         
-        else {
+        if (correctLetterCheck == false) {
             // Check if pressed letter has already been pressed
             if ([badLetters rangeOfString:fieldLetter].location == NSNotFound) {
                 badTries++;
                 badLetters = [NSString stringWithFormat:@"%@%@", badLetters, fieldLetter];
             }
             // Display next image
-            if (badTries == 1) {
-                UIImage *hangmanImageNow = [UIImage imageNamed:@"2.png"];
-                [hangmanImage setImage:hangmanImageNow];
+            for (int i=1; i<=6; i++) {
+                if (badTries == i) {
+                    NSString *hangmanImageName = [NSString stringWithFormat:@"%d.png", i + 1];
+                    UIImage *hangmanImageNow = [UIImage imageNamed:hangmanImageName];
+                    [hangmanImage setImage:hangmanImageNow];
+                }
             }
-            if (badTries == 2) {
-                UIImage *hangmanImageNow = [UIImage imageNamed:@"3.png"];
-                [hangmanImage setImage:hangmanImageNow];
-            }
-            if (badTries == 3) {
-                UIImage *hangmanImageNow = [UIImage imageNamed:@"4.png"];
-                [hangmanImage setImage:hangmanImageNow];
-            }
-            if (badTries == 4) {
-                UIImage *hangmanImageNow = [UIImage imageNamed:@"5.png"];
-                [hangmanImage setImage:hangmanImageNow];
-            }
-            if (badTries == 5) {
-                UIImage *hangmanImageNow = [UIImage imageNamed:@"6.png"];
-                [hangmanImage setImage:hangmanImageNow];
-            }
-            if (badTries == 6) {
-                UIImage *hangmanImageNow = [UIImage imageNamed:@"7.png"];
-                [hangmanImage setImage:hangmanImageNow];
-            }
-            //}
-        
+        }
                 
         // If everything is solved
         if (fieldLettersSolved == wordLength) {
@@ -128,12 +112,9 @@ NSString *word = @"";
 
 - (void)newgame:(id)sender {
     // Reset buttons
-    [[self.lettersArray objectAtIndex:0] setTitle:@"" forState:(UIControlStateNormal)];
-    [[self.lettersArray objectAtIndex:1] setTitle:@"" forState:(UIControlStateNormal)];
-    [[self.lettersArray objectAtIndex:2] setTitle:@"" forState:(UIControlStateNormal)];
-    [[self.lettersArray objectAtIndex:3] setTitle:@"" forState:(UIControlStateNormal)];
-    [[self.lettersArray objectAtIndex:4] setTitle:@"" forState:(UIControlStateNormal)];
-    [[self.lettersArray objectAtIndex:5] setTitle:@"" forState:(UIControlStateNormal)];
+    for (int i=0; i<wordLength; i++) {
+        [[self.lettersArray objectAtIndex:i] setTitle:@"" forState:(UIControlStateNormal)];
+    }
     
     // Reset labels
     [triesLabel setText:@"0"];
@@ -161,36 +142,14 @@ NSString *word = @"";
     [super viewDidLoad];
     
     self.lettersArray = [[NSMutableArray alloc] init];
-    NSLog(@"HOI");
-
     int startWidth = 320 / wordLength - 30;
     int x = startWidth / 2;
     
     for (int i=1; i<=wordLength; i++) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         UIButton *letterButton = [UIButton buttonWithType: UIButtonTypeRoundedRect];
         letterButton.frame = CGRectMake(x, 25, 30, 30);
         [self.view addSubview:letterButton];
         [self.lettersArray addObject:letterButton];
-        
-=======
-=======
->>>>>>> FETCH_HEAD
-=======
->>>>>>> FETCH_HEAD
-=======
->>>>>>> FETCH_HEAD
-        
-        UIButton *testButton = [UIButton buttonWithType: UIButtonTypeRoundedRect];
-        testButton.frame = CGRectMake(x, 25, 30, 30);
-        [self.view addSubview:testButton];
-        self->testButton = testButton;
-        [self.view addSubview:letter1Button];
-        self->letter1Button = letter1Button;
->>>>>>> FETCH_HEAD
         x = x + 30 + startWidth;
     }
     
