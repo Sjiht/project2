@@ -24,15 +24,19 @@ int fieldLetter6Solved;
 int goodTries;
 int badTries;
 int gameEnd;
-int endTries = 6;
+int endTries = 200;
+int wordLength = 6;
 
 // Create empty string variables
 NSString *badLetters = @"";
 NSString *word = @"";
 
 - (NSString *)chooseWord {
+    // Put all the words from the plist in an array
     NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"wordList" ofType:@"plist"]];
     NSArray *array2 = [dictionary valueForKey:@"array"];
+    
+    // Pick a random word from the array
     NSInteger *randomIndex = arc4random() % [array2 count];
     NSString *word = [array2 objectAtIndex:randomIndex];
     NSLog(@"%@", word);
@@ -51,6 +55,8 @@ NSString *word = @"";
 }
 - (IBAction)change:(id)sender {
     if (gameEnd != 1) {
+        [testButton setTitle:[NSString stringWithFormat:@"A"] forState:UIControlStateNormal];
+        
         word = [self checkWord];
         NSString *wordLetter1 = [word substringWithRange:NSMakeRange(0, 1)];
         NSString *wordLetter2 = [word substringWithRange:NSMakeRange(1, 1)];
@@ -65,7 +71,8 @@ NSString *word = @"";
         
         // If current letter is equal to this particular letter
         if ([fieldLetter isEqualToString:(wordLetter1)]) {
-            [letter1Button setTitle:fieldLetter forState:(UIControlStateNormal)];
+            //[letter1Button setTitle:fieldLetter forState:(UIControlStateNormal)];
+            [letter1Button setTitle:[NSString stringWithFormat:@"%s", fieldLetter] forState:UIControlStateNormal];
             fieldLetter1Solved = 1;
         }
         if ([fieldLetter isEqualToString:(wordLetter2)]) {
@@ -145,7 +152,7 @@ NSString *word = @"";
         }
         
         // Show number of tries
-        [triesLabel setText:[NSString stringWithFormat:@"%d", badTries]];
+        [triesLabel setText:[NSString stringWithFormat:@"%d / %d", badTries, endTries]];
         
         // Show bad letters
         [badLettersLabel setText:[NSString stringWithFormat:@"%@", badLetters]];
@@ -202,6 +209,23 @@ NSString *word = @"";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    int startWidth = 320 / wordLength - 30;
+    int x = startWidth / 2;
+    
+    for (int i=1; i<=wordLength; i++) {
+        UIButton *letter1Button = [UIButton buttonWithType: UIButtonTypeRoundedRect];
+        letter1Button.frame = CGRectMake(x, 25, 30, 30);
+        
+        [self.view addSubview:letter1Button];
+        x = x + 30 + startWidth;
+    }
+    UIButton *testButton = [UIButton buttonWithType: UIButtonTypeRoundedRect];
+    testButton.frame = CGRectMake(0, 0, 30, 30);
+    [self.view addSubview:testButton];
+    
+    [self.view addSubview:letter1Button];
+    x = x + 30 + startWidth;
     
     // hide input field by default
     inputField.hidden = YES;

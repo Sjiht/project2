@@ -20,6 +20,13 @@
     IBOutlet UIButton *letter4Button;
     IBOutlet UIButton *letter5Button;
     IBOutlet UIButton *letter6Button;
+    IBOutlet UIButton *letter7Button;
+    IBOutlet UIButton *letter8Button;
+    IBOutlet UIButton *letter9Button;
+    IBOutlet UIButton *letter10Button;
+    IBOutlet UIButton *testButton;
+    
+    
     
     // Labels
     IBOutlet UILabel *triesLabel;
