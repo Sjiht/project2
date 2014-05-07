@@ -16,14 +16,20 @@
 int fieldLettersSolved;
 int goodTries;
 int badTries;
-int gameEnd;
 int endTries = 6;
 int wordLength = 3;
+
+// Create Mutable arrays
 NSMutableArray *wordLetterArray;
 
 // Create empty string variables
+NSString *tempGoodLetters = @"";
+NSString *goodLetters = @"";
 NSString *badLetters = @"";
 NSString *word = @"";
+
+// Create booleans
+bool gameEnd;
 
 - (NSString *)chooseWord {
     // Put all the words from the plist in an array
@@ -54,7 +60,7 @@ NSString *word = @"";
     
 }
 - (IBAction)change:(id)sender {
-    if (gameEnd != 1) {
+    if (gameEnd != true) {
         word = [self checkWord];
         int fieldLength = [inputField.text length];
         NSString *fieldLetter = @"";
@@ -67,12 +73,18 @@ NSString *word = @"";
                 
             // If current letter is equal to this particular letter
             if ([fieldLetter isEqualToString:(wordLetter)]) {
-                [[self.lettersArray objectAtIndex:i] setTitle:fieldLetter forState:(UIControlStateNormal)];
-                fieldLettersSolved++;
-                goodTries++;
+                if ([goodLetters rangeOfString:fieldLetter].location == NSNotFound) {
+                    [[self.lettersArray objectAtIndex:i] setTitle:fieldLetter forState:(UIControlStateNormal)];
+                    fieldLettersSolved++;
+                    goodTries++;
+                    
+                    tempGoodLetters = [NSString stringWithFormat:@"%@%@", goodLetters, fieldLetter];
+                    //goodLetters = [NSString stringWithFormat:@"%@%@", goodLetters, fieldLetter];
+                }
                 correctLetterCheck = true;
             }
         }
+        goodLetters = tempGoodLetters;
         
         if (correctLetterCheck == false) {
             // Check if pressed letter has already been pressed
@@ -95,6 +107,7 @@ NSString *word = @"";
             // Show Alert (win)
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Congratulations!" message:    @"You won!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
+            gameEnd = true;
         }
         
         // Show number of tries
@@ -112,7 +125,7 @@ NSString *word = @"";
                                                     cancelButtonTitle:@"OK"
                                                     otherButtonTitles:nil];
             [myAlert show];
-            gameEnd = 1;
+            gameEnd = true;
         }
     }
 }
@@ -134,6 +147,7 @@ NSString *word = @"";
     gameEnd = 0;
     
     // Reset string variables
+    goodLetters = @"";
     badLetters = @"";
     //VICTOR: UIButton * letter = letterArray[1]
     // Reset word
