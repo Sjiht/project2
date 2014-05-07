@@ -55,8 +55,6 @@ NSString *word = @"";
 }
 - (IBAction)change:(id)sender {
     if (gameEnd != 1) {
-        [testButton setTitle:[NSString stringWithFormat:@"A"] forState:UIControlStateNormal];
-        
         word = [self checkWord];
         NSString *wordLetter1 = [word substringWithRange:NSMakeRange(0, 1)];
         NSString *wordLetter2 = [word substringWithRange:NSMakeRange(1, 1)];
@@ -68,6 +66,8 @@ NSString *word = @"";
         int fieldLength = [inputField.text length];
         NSString *fieldLetter = @"";
         fieldLetter = [inputField.text substringWithRange:NSMakeRange(fieldLength-1, 1)];
+        
+        [testButton setTitle:[NSString stringWithFormat:@"%s", fieldLetter] forState:UIControlStateNormal];
         
         // If current letter is equal to this particular letter
         if ([fieldLetter isEqualToString:(wordLetter1)]) {
@@ -197,7 +197,7 @@ NSString *word = @"";
     
     // Reset string variables
     badLetters = @"";
-    
+    //VICTOR: UIButton * letter = letterArray[1]
     // Reset word
     word = @"";
     
@@ -213,18 +213,24 @@ NSString *word = @"";
     int startWidth = 320 / wordLength - 30;
     int x = startWidth / 2;
     
+    // self.letterArray aanmaken in header file
+    // 
+    
     for (int i=1; i<=wordLength; i++) {
         UIButton *letter1Button = [UIButton buttonWithType: UIButtonTypeRoundedRect];
         letter1Button.frame = CGRectMake(x, 25, 30, 30);
-        
+        //letterArray append:letter1button
         [self.view addSubview:letter1Button];
         x = x + 30 + startWidth;
     }
+    
     UIButton *testButton = [UIButton buttonWithType: UIButtonTypeRoundedRect];
     testButton.frame = CGRectMake(0, 0, 30, 30);
     [self.view addSubview:testButton];
+    self->testButton = testButton;
     
     [self.view addSubview:letter1Button];
+    self->letter1Button = letter1Button;
     x = x + 30 + startWidth;
     
     // hide input field by default

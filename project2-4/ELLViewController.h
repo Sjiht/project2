@@ -24,7 +24,7 @@
     IBOutlet UIButton *letter8Button;
     IBOutlet UIButton *letter9Button;
     IBOutlet UIButton *letter10Button;
-    IBOutlet UIButton *testButton;
+    UIButton *testButton;
     
     
     
