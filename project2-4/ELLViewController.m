@@ -8,24 +8,18 @@
 
 #import "ELLViewController.h"
 
-@interface ELLViewController ()
-
-@end
 
 @implementation ELLViewController
+@synthesize lettersArray;
 
 // Create integer variables
-int fieldLetter1Solved;
-int fieldLetter2Solved;
-int fieldLetter3Solved;
-int fieldLetter4Solved;
-int fieldLetter5Solved;
-int fieldLetter6Solved;
+int fieldLettersSolved;
 int goodTries;
 int badTries;
 int gameEnd;
-int endTries = 200;
+int endTries = 6;
 int wordLength = 6;
+NSMutableArray *wordLetterArray;
 
 // Create empty string variables
 NSString *badLetters = @"";
@@ -56,53 +50,21 @@ NSString *word = @"";
 - (IBAction)change:(id)sender {
     if (gameEnd != 1) {
         word = [self checkWord];
-        NSString *wordLetter1 = [word substringWithRange:NSMakeRange(0, 1)];
-        NSString *wordLetter2 = [word substringWithRange:NSMakeRange(1, 1)];
-        NSString *wordLetter3 = [word substringWithRange:NSMakeRange(2, 1)];
-        NSString *wordLetter4 = [word substringWithRange:NSMakeRange(3, 1)];
-        NSString *wordLetter5 = [word substringWithRange:NSMakeRange(4, 1)];
-        NSString *wordLetter6 = [word substringWithRange:NSMakeRange(5, 1)];
-        
         int fieldLength = [inputField.text length];
         NSString *fieldLetter = @"";
         fieldLetter = [inputField.text substringWithRange:NSMakeRange(fieldLength-1, 1)];
         
-        // If current letter is equal to this particular letter
-        if ([fieldLetter isEqualToString:(wordLetter1)]) {
-            //[letter1Button setTitle:fieldLetter forState:(UIControlStateNormal)];
-            [testButton setTitle:fieldLetter forState:UIControlStateNormal];
-            fieldLetter1Solved = 1;
-        }
-        if ([fieldLetter isEqualToString:(wordLetter2)]) {
-            [letter2Button setTitle:fieldLetter forState:(UIControlStateNormal)];
-            fieldLetter2Solved = 1;
-        }
-        if ([fieldLetter isEqualToString:(wordLetter3)]) {
-            [letter3Button setTitle:fieldLetter forState:(UIControlStateNormal)];
-            fieldLetter3Solved = 1;
-        }
-        if ([fieldLetter isEqualToString:(wordLetter4)]) {
-            [letter4Button setTitle:fieldLetter forState:(UIControlStateNormal)];
-            fieldLetter4Solved = 1;
-        }
-        if ([fieldLetter isEqualToString:(wordLetter5)]) {
-            [letter5Button setTitle:fieldLetter forState:(UIControlStateNormal)];
-            fieldLetter5Solved = 1;
-        }
-        if ([fieldLetter isEqualToString:(wordLetter6)]) {
-            [letter6Button setTitle:fieldLetter forState:(UIControlStateNormal)];
-            fieldLetter6Solved = 1;
+        for (int i=0; i<wordLength; i++){
+            NSString *wordLetter = [word substringWithRange:NSMakeRange(i, 1)];
+                
+            // If current letter is equal to this particular letter
+            if ([fieldLetter isEqualToString:(wordLetter)]) {
+                [[self.lettersArray objectAtIndex:i] setTitle:fieldLetter forState:(UIControlStateNormal)];
+                fieldLettersSolved++;
+                goodTries++;
+            }
         }
         
-        // If current letter is equal to one of the letters
-        if ([fieldLetter isEqualToString:(wordLetter1)]
-            || [fieldLetter isEqualToString:(wordLetter2)]
-            || [fieldLetter isEqualToString:(wordLetter3)]
-            || [fieldLetter isEqualToString:(wordLetter4)]
-            || [fieldLetter isEqualToString:(wordLetter5)]
-            || [fieldLetter isEqualToString:(wordLetter6)]) {
-            goodTries++;
-        }
         else {
             // Check if pressed letter has already been pressed
             if ([badLetters rangeOfString:fieldLetter].location == NSNotFound) {
@@ -135,15 +97,10 @@ NSString *word = @"";
                 [hangmanImage setImage:hangmanImageNow];
             }
             //}
-        }
         
+                
         // If everything is solved
-        if (fieldLetter1Solved == 1
-            && fieldLetter2Solved == 1
-            && fieldLetter3Solved == 1
-            && fieldLetter4Solved == 1
-            && fieldLetter5Solved == 1
-            && fieldLetter6Solved == 1) {    
+        if (fieldLettersSolved == wordLength) {
             // Show Alert (win)
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Congratulations!" message:    @"You won!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
@@ -171,24 +128,19 @@ NSString *word = @"";
 
 - (void)newgame:(id)sender {
     // Reset buttons
-    [letter1Button setTitle:@"" forState:(UIControlStateNormal)];
-    [letter2Button setTitle:@"" forState:(UIControlStateNormal)];
-    [letter3Button setTitle:@"" forState:(UIControlStateNormal)];
-    [letter4Button setTitle:@"" forState:(UIControlStateNormal)];
-    [letter5Button setTitle:@"" forState:(UIControlStateNormal)];
-    [letter6Button setTitle:@"" forState:(UIControlStateNormal)];
+    [[self.lettersArray objectAtIndex:0] setTitle:@"" forState:(UIControlStateNormal)];
+    [[self.lettersArray objectAtIndex:1] setTitle:@"" forState:(UIControlStateNormal)];
+    [[self.lettersArray objectAtIndex:2] setTitle:@"" forState:(UIControlStateNormal)];
+    [[self.lettersArray objectAtIndex:3] setTitle:@"" forState:(UIControlStateNormal)];
+    [[self.lettersArray objectAtIndex:4] setTitle:@"" forState:(UIControlStateNormal)];
+    [[self.lettersArray objectAtIndex:5] setTitle:@"" forState:(UIControlStateNormal)];
     
     // Reset labels
     [triesLabel setText:@"0"];
     [badLettersLabel setText:@""];
     
     // Reset integer variables
-    fieldLetter1Solved = 0;
-    fieldLetter2Solved = 0;
-    fieldLetter3Solved = 0;
-    fieldLetter4Solved = 0;
-    fieldLetter5Solved = 0;
-    fieldLetter6Solved = 0;
+    fieldLettersSolved = 0;
     goodTries = 0;
     badTries = 0;
     gameEnd = 0;
@@ -208,28 +160,34 @@ NSString *word = @"";
 {
     [super viewDidLoad];
     
+    self.lettersArray = [[NSMutableArray alloc] init];
+    NSLog(@"HOI");
+
     int startWidth = 320 / wordLength - 30;
     int x = startWidth / 2;
     
-    // self.letterArray aanmaken in header file
-    // 
-    
-    //for (int i=1; i<=wordLength; i++) {
-    //    UIButton *letter1Button = [UIButton buttonWithType: UIButtonTypeRoundedRect];
-    //    letter1Button.frame = CGRectMake(x, 25, 30, 30);
-        //letterArray append:letter1button
-    //    [self.view addSubview:letter1Button];
-    //    x = x + 30 + startWidth;
-    //}
-    
     for (int i=1; i<=wordLength; i++) {
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+        UIButton *letterButton = [UIButton buttonWithType: UIButtonTypeRoundedRect];
+        letterButton.frame = CGRectMake(x, 25, 30, 30);
+        [self.view addSubview:letterButton];
+        [self.lettersArray addObject:letterButton];
+        
+=======
+=======
+>>>>>>> FETCH_HEAD
+=======
+>>>>>>> FETCH_HEAD
+        
         UIButton *testButton = [UIButton buttonWithType: UIButtonTypeRoundedRect];
         testButton.frame = CGRectMake(x, 25, 30, 30);
         [self.view addSubview:testButton];
         self->testButton = testButton;
-    
         [self.view addSubview:letter1Button];
         self->letter1Button = letter1Button;
+>>>>>>> FETCH_HEAD
         x = x + 30 + startWidth;
     }
     
