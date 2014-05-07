@@ -67,12 +67,10 @@ NSString *word = @"";
         NSString *fieldLetter = @"";
         fieldLetter = [inputField.text substringWithRange:NSMakeRange(fieldLength-1, 1)];
         
-        [testButton setTitle:[NSString stringWithFormat:@"%s", fieldLetter] forState:UIControlStateNormal];
-        
         // If current letter is equal to this particular letter
         if ([fieldLetter isEqualToString:(wordLetter1)]) {
             //[letter1Button setTitle:fieldLetter forState:(UIControlStateNormal)];
-            [letter1Button setTitle:[NSString stringWithFormat:@"%s", fieldLetter] forState:UIControlStateNormal];
+            [testButton setTitle:fieldLetter forState:UIControlStateNormal];
             fieldLetter1Solved = 1;
         }
         if ([fieldLetter isEqualToString:(wordLetter2)]) {
@@ -216,22 +214,24 @@ NSString *word = @"";
     // self.letterArray aanmaken in header file
     // 
     
-    for (int i=1; i<=wordLength; i++) {
-        UIButton *letter1Button = [UIButton buttonWithType: UIButtonTypeRoundedRect];
-        letter1Button.frame = CGRectMake(x, 25, 30, 30);
+    //for (int i=1; i<=wordLength; i++) {
+    //    UIButton *letter1Button = [UIButton buttonWithType: UIButtonTypeRoundedRect];
+    //    letter1Button.frame = CGRectMake(x, 25, 30, 30);
         //letterArray append:letter1button
+    //    [self.view addSubview:letter1Button];
+    //    x = x + 30 + startWidth;
+    //}
+    
+    for (int i=1; i<=wordLength; i++) {
+        UIButton *testButton = [UIButton buttonWithType: UIButtonTypeRoundedRect];
+        testButton.frame = CGRectMake(x, 25, 30, 30);
+        [self.view addSubview:testButton];
+        self->testButton = testButton;
+    
         [self.view addSubview:letter1Button];
+        self->letter1Button = letter1Button;
         x = x + 30 + startWidth;
     }
-    
-    UIButton *testButton = [UIButton buttonWithType: UIButtonTypeRoundedRect];
-    testButton.frame = CGRectMake(0, 0, 30, 30);
-    [self.view addSubview:testButton];
-    self->testButton = testButton;
-    
-    [self.view addSubview:letter1Button];
-    self->letter1Button = letter1Button;
-    x = x + 30 + startWidth;
     
     // hide input field by default
     inputField.hidden = YES;
