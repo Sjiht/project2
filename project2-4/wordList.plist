@@ -4,8 +4,13 @@
 <dict>
 	<key>array</key>
 	<array>
-		<string>mies</string>
+		<string>mie</string>
 		<string>noot</string>
+        <string>aap</string>
+		<string>iphone</string>
+        <string>papier</string>
+		<string>ho</string>
+        <string>vier</string>
 	</array>
 </dict>
 </plist>

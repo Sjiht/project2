@@ -18,7 +18,7 @@ int goodTries;
 int badTries;
 int gameEnd;
 int endTries = 6;
-int wordLength = 4;
+int wordLength = 3;
 NSMutableArray *wordLetterArray;
 
 // Create empty string variables
@@ -29,10 +29,17 @@ NSString *word = @"";
     // Put all the words from the plist in an array
     NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"wordList" ofType:@"plist"]];
     NSArray *array2 = [dictionary valueForKey:@"array"];
-    
+    NSMutableArray *array3 = [[NSMutableArray alloc] init];
+    for (NSString *key in array2) {
+        int length = [key length];
+        if (length == wordLength) {
+            [array3 addObject:key];
+        }
+        
+    }
     // Pick a random word from the array
-    NSInteger *randomIndex = arc4random() % [array2 count];
-    NSString *word = [array2 objectAtIndex:randomIndex];
+    NSInteger *randomIndex = arc4random() % [array3 count];
+    NSString *word = [array3 objectAtIndex:randomIndex];
     return word;
 }
 
