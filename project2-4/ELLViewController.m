@@ -170,12 +170,15 @@ NSString *word = @"";
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         UIButton *letterButton = [UIButton buttonWithType: UIButtonTypeRoundedRect];
         letterButton.frame = CGRectMake(x, 25, 30, 30);
         [self.view addSubview:letterButton];
         [self.lettersArray addObject:letterButton];
         
 =======
+=======
+>>>>>>> FETCH_HEAD
 =======
 >>>>>>> FETCH_HEAD
 =======
