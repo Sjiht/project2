@@ -13,30 +13,21 @@
     IBOutlet UITextField *inputField;
     
     // Buttons
-    UIButton letterArray;
-    
     IBOutlet UIButton *newgameButton;
-    IBOutlet UIButton *letter1Button;
-    IBOutlet UIButton *letter2Button;
-    IBOutlet UIButton *letter3Button;
-    IBOutlet UIButton *letter4Button;
-    IBOutlet UIButton *letter5Button;
-    IBOutlet UIButton *letter6Button;
-    IBOutlet UIButton *letter7Button;
-    IBOutlet UIButton *letter8Button;
-    IBOutlet UIButton *letter9Button;
-    IBOutlet UIButton *letter10Button;
-    UIButton *testButton;
-    
-    
     
     // Labels
     IBOutlet UILabel *triesLabel;
     IBOutlet UILabel *badLettersLabel;
     
+    NSMutableArray *lettersArray;
+    
     // Images
     IBOutlet UIImageView *hangmanImage;
 }
+
+// Auto generated buttons for letters
+
+@property(strong) NSMutableArray *lettersArray;
 
 - (IBAction)change:(id)sender;
 
