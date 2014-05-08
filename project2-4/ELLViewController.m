@@ -17,10 +17,12 @@ int fieldLettersSolved;
 int goodTries;
 int badTries;
 int endTries = 6;
-int wordLength = 3;
+int wordLength = 5;
 
 // Create Mutable arrays
 NSMutableArray *wordLetterArray;
+NSMutableArray *guessedLettersArray;
+NSMutableArray *array2;
 
 // Create empty string variables
 NSString *tempGoodLetters = @"";
@@ -42,7 +44,6 @@ bool evilGame = true;
         if (length == wordLength) {
             [array3 addObject:key];
         }
-        
     }
     // Pick a random word from the array
     NSInteger *randomIndex = arc4random() % [array3 count];
@@ -51,9 +52,6 @@ bool evilGame = true;
 }
 
 - (NSString *)chooseEvilWord {
-    // Put all the words from the plist in an array
-    NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"wordList" ofType:@"plist"]];
-    NSArray *array2 = [dictionary valueForKey:@"array"];
     NSMutableArray *array3 = [[NSMutableArray alloc] init];
     for (NSString *key in array2) {
         int length = [key length];
@@ -61,6 +59,14 @@ bool evilGame = true;
             [array3 addObject:key];
         }
     }
+    
+    //for (NSString *key in array2) {
+    //    NSLog(key);
+    //}
+    
+    //NSLog(@"%@",guessedLettersArray);
+    
+    
     
     // uek
     // iuk
@@ -86,7 +92,30 @@ bool evilGame = true;
     
     NSMutableArray *array4 = [[NSMutableArray alloc] init];
     NSMutableArray *array5 = [[NSMutableArray alloc] init];
-    NSArray *array6 = [[NSArray alloc] init];
+    NSMutableArray *array6 = [[NSMutableArray alloc] init];
+    NSMutableIndexSet *indexesArray = [[NSMutableIndexSet alloc] init];
+    [indexesArray removeAllIndexes];
+    
+    array6 = array3;
+    int i = 0;
+    for (NSString *letter in guessedLettersArray) {
+        if (letter != @"") {
+            int n = 0;
+            for (NSString *word in array3) {
+                if (letter != [word substringWithRange: NSMakeRange(i,1)]) {
+                    //NSLog(@"%@",word);
+                    [indexesArray addIndex:n];
+                }
+                n++;
+            }
+        }
+        i++;
+    }
+    NSLog(@"%@",indexesArray);
+    // verwijder alle lege woorden uit lijst
+    [array6 removeObjectsAtIndexes:indexesArray];
+    //NSLog(@"%@",array6);
+    array3 = array6;
     
     for (NSString *word in array3) {
         if ([word rangeOfString:fieldLetter].location == NSNotFound) {
@@ -96,18 +125,18 @@ bool evilGame = true;
             [array5 addObject:word];
         }
     }
-    
+
     if ([array4 count] >= [array5 count]) {
-        array6 = array4;
+        array2 = array4;
     }
     else {
-        array6 = array5;
+        array2 = array5;
     }
     
     // Pick a random word from the array
-    NSInteger *randomIndex = arc4random() % [array6 count];
-    NSString *word = [array6 objectAtIndex:randomIndex];
-    NSLog(word);
+    NSInteger *randomIndex = arc4random() % [array2 count];
+    NSString *word = [array2 objectAtIndex:randomIndex];
+    //NSLog(word);
     return word;
 }
 
@@ -148,9 +177,9 @@ bool evilGame = true;
                     goodTries++;
                     
                     tempGoodLetters = [NSString stringWithFormat:@"%@%@", goodLetters, fieldLetter];
-                    //goodLetters = [NSString stringWithFormat:@"%@%@", goodLetters, fieldLetter];
                 }
                 correctLetterCheck = true;
+                [guessedLettersArray replaceObjectAtIndex:i withObject:wordLetter];
             }
         }
         goodLetters = tempGoodLetters;
@@ -214,6 +243,12 @@ bool evilGame = true;
     goodTries = 0;
     badTries = 0;
     gameEnd = 0;
+    [array2 removeAllObjects];
+    [guessedLettersArray removeAllObjects];
+    
+    // Put all the words from the plist in an array
+    NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"wordList" ofType:@"plist"]];
+    array2 = [dictionary valueForKey:@"array"];
     
     // Reset string variables
     goodLetters = @"";
@@ -230,6 +265,16 @@ bool evilGame = true;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    guessedLettersArray = [[NSMutableArray alloc] init];
+    // test
+    for (int i=0; i<wordLength; i++) {
+        [guessedLettersArray insertObject:@"" atIndex:i];
+    }
+    
+    // Put all the words from the plist in an array
+    NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"wordList" ofType:@"plist"]];
+    array2 = [dictionary valueForKey:@"array"];
     
     self.lettersArray = [[NSMutableArray alloc] init];
     int startWidth = 320 / wordLength - 30;
