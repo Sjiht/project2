@@ -139,10 +139,10 @@
 			isa = PBXGroup;
 			children = (
 				CD31E32A157A28ED000FEC88 /* ELLAppDelegate.h */,
+				CD31E330157A28EE000FEC88 /* ELLViewController_iPhone.xib */,
 				CD31E32B157A28ED000FEC88 /* ELLAppDelegate.m */,
 				CD31E32D157A28ED000FEC88 /* ELLViewController.h */,
 				CD31E32E157A28ED000FEC88 /* ELLViewController.m */,
-				CD31E330157A28EE000FEC88 /* ELLViewController_iPhone.xib */,
 				CD78F376191ABA6600BF1EED /* ELLHomeController.h */,
 				CD78F377191ABA6600BF1EED /* ELLHomeController.m */,
 				CD78F37A191ABA9300BF1EED /* ELLHighscoresController.h */,

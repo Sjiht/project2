@@ -4,9 +4,26 @@
 <dict>
 	<key>array</key>
 	<array>
-		<string>aaaaa</string>
-        <string>bbbbb</string>
-        <string>ababa</string>
+		<string>een</string>
+        <string>twee</string>
+        <string>drie</string>
+        <string>vier</string>
+        <string>vijf</string>
+        <string>zes</string>
+        <string>zeven</string>
+        <string>acht</string>
+        <string>negen</string>
+        <string>tien</string>
+        <string>elf</string>
+        <string>twaalf</string>
+        <string>dertien</string>
+        <string>veertien</string>
+        <string>vijftien</string>
+        <string>zestien</string>
+        <string>zeventien</string>
+        <string>achttien</string>
+        <string>negentien</string>
+        <string>twintig</string>
 	</array>
 </dict>
 </plist>
