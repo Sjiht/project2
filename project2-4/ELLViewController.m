@@ -32,7 +32,7 @@ NSString *word = @"";
 
 // Create booleans
 bool gameEnd;
-bool evilGame = true;
+bool evilGame = false;
 
 - (NSString *)chooseNormalWord {
     // Put all the words from the plist in an array
