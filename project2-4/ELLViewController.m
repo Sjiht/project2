@@ -32,7 +32,7 @@ NSString *word = @"";
 
 // Create booleans
 bool gameEnd;
-bool evilGame = false;
+bool evilGame = true;
 
 - (NSString *)chooseNormalWord {
     // Put all the words from the plist in an array
@@ -40,9 +40,10 @@ bool evilGame = false;
     NSMutableArray *array2 = [dictionary valueForKey:@"array"];
     NSMutableArray *array3 = [[NSMutableArray alloc] init];
     for (NSString *key in array2) {
+        NSString *keyLowercase = [key lowercaseString];
         int length = [key length];
         if (length == wordLength) {
-            [array3 addObject:key];
+            [array3 addObject:keyLowercase];
         }
     }
     // Pick a random word from the array
@@ -53,14 +54,13 @@ bool evilGame = false;
 
 - (NSString *)chooseEvilWord {
     NSMutableArray *array3 = [[NSMutableArray alloc] init];
-    NSLog(@"%@",[array3 count]);
     for (NSString *key in array2) {
+        NSString *keyLowercase = [key lowercaseString];
         int length = [key length];
         if (length == wordLength) {
-            [array3 addObject:key];
+            [array3 addObject:keyLowercase];
         }
     }
-    
     
     int fieldLength = [inputField.text length];
     NSString *fieldLetter = @"";
@@ -70,6 +70,8 @@ bool evilGame = false;
     NSMutableArray *array5 = [[NSMutableArray alloc] init];
     NSMutableArray *array6 = [[NSMutableArray alloc] init];
     NSMutableArray *array7 = [[NSMutableArray alloc] init];
+    NSMutableArray *array8 = [[NSMutableArray alloc] init];
+    
     NSNumber *someNumber = [NSNumber numberWithInt:0];
     for (int i=0; i<wordLength; i++) {
         [array7 addObject:someNumber];
@@ -81,7 +83,6 @@ bool evilGame = false;
             int n = 0;
             for (NSString *word in array3) {
                 if (letter == [word substringWithRange: NSMakeRange(i,1)]) {
-                    //NSLog(@"%@",word);
                     [array6 addObject:word];
                 }
                 n++;
@@ -92,7 +93,6 @@ bool evilGame = false;
     if ([array6 count] != 0) {
         array3 = array6;
     }
-    NSLog(@"%@",array3);
     
     for (NSString *word in array3) {
         if ([word rangeOfString:fieldLetter].location == NSNotFound) {
@@ -111,20 +111,41 @@ bool evilGame = false;
     }
     
     for (NSString *word in array2) {
-        for (int i=1; i<=wordLength; i++) {
-            if (fieldLetter == [word substringWithRange: NSMakeRange(i,1)]) {
-                //NSLog(@"%@",word);
-                int n = [array7 objectAtIndex:i];
-               // n++;
-                //[array7 replaceObjectAtIndex:i withObject:n];
+        for (int i=0; i<wordLength; i++) {
+            if ([fieldLetter isEqualToString: [word substringWithRange: NSMakeRange(i,1)]]) {
+                NSString *nString = [array7 objectAtIndex:i];
+                int nInt = [nString intValue];
+                nInt++;
+                nString = [NSString stringWithFormat:@"%d",nInt];
+                [array7 replaceObjectAtIndex:i withObject:nString];
             }
         }
     }
+    NSNumber *maxNum = [array7 valueForKeyPath:@"@max.intValue"];
+    NSString *number = [[NSString alloc] initWithFormat:@"%@", maxNum];
+    int index = [array7 indexOfObject:number];
     
+    if (index != 2147483647) {
+        for (NSString *word in array2) {
+            // de i-de letter in het woord moet gelijk zijn aan fieldLetter
+            if ([fieldLetter isEqualToString: [word substringWithRange: NSMakeRange(index,1)]]) {
+                [array8 addObject:word];
+            }
+        }
+    }
+    else {
+        array8 = array2;
+    }
+    array2 = array8;
+    
+    
+    // Stop alle woorden in array8 die fieldLetter op de hoogste plaats van Array 7 hebben staan
+    
+    
+
     // Pick a random word from the array
     NSInteger *randomIndex = arc4random() % [array2 count];
     NSString *word = [array2 objectAtIndex:randomIndex];
-    //NSLog(word);
     return word;
 }
 

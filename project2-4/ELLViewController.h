@@ -29,6 +29,7 @@
 
 @property(strong) NSMutableArray *lettersArray;
 
+
 - (IBAction)change:(id)sender;
 
 @end

@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		76FAEF2118E18C7A00E03CB4 /* wordList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 76FAEF2018E18C7A00E03CB4 /* wordList.plist */; };
+		CD27CE87191E54DD00EDE3C0 /* words.plist in Resources */ = {isa = PBXBuildFile; fileRef = CD27CE86191E54DD00EDE3C0 /* words.plist */; };
+		CD27CE89191E56B200EDE3C0 /* wordList.plist in Resources */ = {isa = PBXBuildFile; fileRef = CD27CE88191E56B200EDE3C0 /* wordList.plist */; };
 		CD31E31C157A28ED000FEC88 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD31E31B157A28ED000FEC88 /* UIKit.framework */; };
 		CD31E31E157A28ED000FEC88 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD31E31D157A28ED000FEC88 /* Foundation.framework */; };
 		CD31E320157A28ED000FEC88 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD31E31F157A28ED000FEC88 /* CoreGraphics.framework */; };
@@ -45,7 +46,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		76FAEF2018E18C7A00E03CB4 /* wordList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = wordList.plist; sourceTree = "<group>"; };
+		CD27CE86191E54DD00EDE3C0 /* words.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = words.plist; sourceTree = "<group>"; };
+		CD27CE88191E56B200EDE3C0 /* wordList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = wordList.plist; sourceTree = "<group>"; };
 		CD31E317157A28ED000FEC88 /* project2-4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "project2-4.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD31E31B157A28ED000FEC88 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CD31E31D157A28ED000FEC88 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -166,8 +168,9 @@
 				CD31E323157A28ED000FEC88 /* project2-4-Info.plist */,
 				CD31E324157A28ED000FEC88 /* InfoPlist.strings */,
 				CD31E327157A28ED000FEC88 /* main.m */,
+				CD27CE88191E56B200EDE3C0 /* wordList.plist */,
+				CD27CE86191E54DD00EDE3C0 /* words.plist */,
 				CD31E329157A28ED000FEC88 /* project2-4-Prefix.pch */,
-				76FAEF2018E18C7A00E03CB4 /* wordList.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -273,8 +276,9 @@
 				CD31E37C157AD420000FEC88 /* 5.png in Resources */,
 				CD31E37D157AD420000FEC88 /* 6.png in Resources */,
 				CD31E37E157AD420000FEC88 /* 7.png in Resources */,
-				76FAEF2118E18C7A00E03CB4 /* wordList.plist in Resources */,
 				CDD4C973191AC8810067477F /* View.storyboard in Resources */,
+				CD27CE87191E54DD00EDE3C0 /* words.plist in Resources */,
+				CD27CE89191E56B200EDE3C0 /* wordList.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
