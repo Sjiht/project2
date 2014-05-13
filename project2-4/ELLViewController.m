@@ -16,8 +16,8 @@
 int fieldLettersSolved;
 int goodTries;
 int badTries;
-int endTries = 6;
-int wordLength = 4;
+int endTries = 10;
+int wordLength = 7;
 
 // Create Mutable arrays
 NSMutableArray *wordLetterArray;
@@ -71,25 +71,30 @@ bool evilGame = true;
     NSMutableArray *array6 = [[NSMutableArray alloc] init];
     NSMutableArray *array7 = [[NSMutableArray alloc] init];
     NSMutableArray *array8 = [[NSMutableArray alloc] init];
+    NSMutableArray *wordlettersArray = [[NSMutableArray alloc] init];
+    for (int i=0; i<wordLength; i++) {
+        [wordlettersArray insertObject:@"" atIndex:i];
+    }
     
     NSNumber *someNumber = [NSNumber numberWithInt:0];
     for (int i=0; i<wordLength; i++) {
         [array7 addObject:someNumber];
     }
     
-    int i = 0;
-    for (NSString *letter in guessedLettersArray) {
-        if (letter != @"") {
-            int n = 0;
-            for (NSString *word in array3) {
-                if (letter == [word substringWithRange: NSMakeRange(i,1)]) {
-                    [array6 addObject:word];
-                }
-                n++;
+    for (NSString *word in array3) {
+        for (int i=0; i<wordLength; i++) {
+            [wordlettersArray replaceObjectAtIndex:i withObject:@""];
+        }
+        for (int i=0; i<wordLength; i++) {
+            if ([guessedLettersArray containsObject:[word substringWithRange: NSMakeRange(i,1)]]) {
+                [wordlettersArray replaceObjectAtIndex:i withObject:[word substringWithRange: NSMakeRange(i,1)]];
             }
         }
-        i++;
+        if ([guessedLettersArray isEqualToArray:wordlettersArray]) {
+            [array6 addObject:word];
+        }
     }
+    
     if ([array6 count] != 0) {
         array3 = array6;
     }
@@ -173,66 +178,74 @@ bool evilGame = true;
         NSString *fieldLetter = @"";
         fieldLetter = [inputField.text substringWithRange:NSMakeRange(fieldLength-1, 1)];
         
-        bool correctLetterCheck = false;
-        
-        for (int i=0; i<wordLength; i++) {
-            NSString *wordLetter = [word substringWithRange:NSMakeRange(i, 1)];
-                
-            // If current letter is equal to this particular letter
-            if ([fieldLetter isEqualToString:(wordLetter)]) {
-                if ([goodLetters rangeOfString:fieldLetter].location == NSNotFound) {
-                    [[self.lettersArray objectAtIndex:i] setTitle:fieldLetter forState:(UIControlStateNormal)];
-                    fieldLettersSolved++;
-                    goodTries++;
+        if ([[fieldLetter stringByTrimmingCharactersInSet:[NSCharacterSet letterCharacterSet]] isEqualToString:@""]) {
                     
-                    tempGoodLetters = [NSString stringWithFormat:@"%@%@", goodLetters, fieldLetter];
-                }
-                correctLetterCheck = true;
-                [guessedLettersArray replaceObjectAtIndex:i withObject:wordLetter];
-            }
-        }
-        goodLetters = tempGoodLetters;
-        
-        if (correctLetterCheck == false) {
-            // Check if pressed letter has already been pressed
-            if ([badLetters rangeOfString:fieldLetter].location == NSNotFound) {
-                badTries++;
-                badLetters = [NSString stringWithFormat:@"%@%@", badLetters, fieldLetter];
-            }
-            // Display next image
-            for (int i=1; i<=6; i++) {
-                if (badTries == i) {
-                    NSString *hangmanImageName = [NSString stringWithFormat:@"%d.png", i + 1];
-                    UIImage *hangmanImageNow = [UIImage imageNamed:hangmanImageName];
-                    [hangmanImage setImage:hangmanImageNow];
+            bool correctLetterCheck = false;
+            
+            for (int i=0; i<wordLength; i++) {
+                NSString *wordLetter = [word substringWithRange:NSMakeRange(i, 1)];
+                    
+                // If current letter is equal to this particular letter
+                if ([fieldLetter isEqualToString:(wordLetter)]) {
+                    if ([goodLetters rangeOfString:fieldLetter].location == NSNotFound) {
+                        fieldLettersSolved++;
+                        goodTries++;
+                        
+                        tempGoodLetters = [NSString stringWithFormat:@"%@%@", goodLetters, fieldLetter];
+                    }
+                    correctLetterCheck = true;
+                    [guessedLettersArray replaceObjectAtIndex:i withObject:wordLetter];
                 }
             }
-        }
-                
-        // If everything is solved
-        if (fieldLettersSolved == wordLength) {
-            // Show Alert (win)
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Congratulations!" message:    @"You won!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alert show];
-            gameEnd = true;
-        }
-        
-        // Show number of tries
-        [triesLabel setText:[NSString stringWithFormat:@"%d / %d", badTries, endTries]];
-        
-        // Show bad letters
-        [badLettersLabel setText:[NSString stringWithFormat:@"%@", badLetters]];
-        
-        if (!(badTries < endTries)) {
-            // Show Alert (lose)
-            NSString *alertString = [NSString stringWithFormat:@"You lose! The word was: %@", word];
-            UIAlertView *myAlert = [[UIAlertView alloc] initWithTitle:@"Ahh!"
-                                                              message:alertString
-                                                             delegate:self
-                                                    cancelButtonTitle:@"OK"
-                                                    otherButtonTitles:nil];
-            [myAlert show];
-            gameEnd = true;
+            goodLetters = tempGoodLetters;
+            
+            int i = 0;
+            for (NSString *guessedLetter in guessedLettersArray) {
+                [[self.lettersArray objectAtIndex:i] setTitle:guessedLetter forState:(UIControlStateNormal)];
+                i++;
+            }
+            
+            if (correctLetterCheck == false) {
+                // Check if pressed letter has already been pressed
+                if ([badLetters rangeOfString:fieldLetter].location == NSNotFound) {
+                    badTries++;
+                    badLetters = [NSString stringWithFormat:@"%@%@", badLetters, fieldLetter];
+                }
+                // Display next image
+                for (int i=1; i<=6; i++) {
+                    if (badTries - (endTries - 6) == i) {
+                        NSString *hangmanImageName = [NSString stringWithFormat:@"%d.png", i + 1];
+                        UIImage *hangmanImageNow = [UIImage imageNamed:hangmanImageName];
+                        [hangmanImage setImage:hangmanImageNow];
+                    }
+                }
+            }
+                    
+            // If everything is solved
+            if (![guessedLettersArray containsObject:@""]) {
+                // Show Alert (win)
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Congratulations!" message:    @"You won!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alert show];
+                gameEnd = true;
+            }
+            
+            // Show number of tries
+            [triesLabel setText:[NSString stringWithFormat:@"%d / %d", badTries, endTries]];
+            
+            // Show bad letters
+            [badLettersLabel setText:[NSString stringWithFormat:@"%@", badLetters]];
+            
+            if (!(badTries < endTries)) {
+                // Show Alert (lose)
+                NSString *alertString = [NSString stringWithFormat:@"You lose! The word was: %@", word];
+                UIAlertView *myAlert = [[UIAlertView alloc] initWithTitle:@"Ahh!"
+                                                                  message:alertString
+                                                                 delegate:self
+                                                        cancelButtonTitle:@"OK"
+                                                        otherButtonTitles:nil];
+                [myAlert show];
+                gameEnd = true;
+            }
         }
     }
 }
