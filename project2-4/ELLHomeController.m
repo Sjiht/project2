@@ -16,7 +16,9 @@
 
 - (IBAction)newNormalGame:(id)sender {
     ELLViewController *gameController = [[ELLViewController alloc] initWithNibName:@"ELLViewController_iPhone" bundle:nil];
-    [self.view addSubview:gameController.view];
+    gameController.evilGame = false;
+    
+    [self presentViewController:gameController animated:YES completion:nil];
     NSLog(@"New normal game");
 }
 @end

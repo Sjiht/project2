@@ -28,7 +28,7 @@
 // Auto generated buttons for letters
 
 @property(strong) NSMutableArray *lettersArray;
-
+@property BOOL evilGame;
 
 - (IBAction)change:(id)sender;
 

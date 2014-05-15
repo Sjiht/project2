@@ -10,6 +10,7 @@
 
 @implementation ELLViewController
 @synthesize lettersArray;
+@synthesize evilGame;
 
 // Create integer variables
 int fieldLettersSolved;
@@ -31,9 +32,9 @@ NSString *word = @"";
 
 // Create booleans
 bool gameEnd;
-bool evilGame = true;
 
 - (NSString *)chooseNormalWord {
+    NSLog(@"TEST");
     // Put all the words from the plist in an array
     NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"wordList" ofType:@"plist"]];
     NSMutableArray *array2 = [dictionary valueForKey:@"array"];
@@ -46,9 +47,10 @@ bool evilGame = true;
         }
     }
     // Pick a random word from the array
-    NSInteger *randomIndex = arc4random() % [array3 count];
+    NSInteger randomIndex = arc4random() % [array3 count];
     NSString *word = [array3 objectAtIndex:randomIndex];
     return word;
+    NSLog(@"%@", word);
 }
 
 - (NSString *)chooseEvilWord {
@@ -148,7 +150,7 @@ bool evilGame = true;
     
 
     // Pick a random word from the array
-    NSInteger *randomIndex = arc4random() % [array2 count];
+    NSInteger randomIndex = arc4random() % [array2 count];
     NSString *word = [array2 objectAtIndex:randomIndex];
     return word;
 }
@@ -166,10 +168,10 @@ bool evilGame = true;
 - (IBAction)change:(id)sender {
     if (gameEnd != true) {
         
-        if (evilGame == true) {
+        if (self.evilGame == true) {
             word = [self chooseEvilWord];
         }
-        else if (evilGame == false) {
+        else {
             word = [self checkWord];
         }
         
@@ -264,7 +266,7 @@ bool evilGame = true;
     goodTries = 0;
     badTries = 0;
     gameEnd = 0;
-    array2 = [[NSDictionary alloc] init];
+    array2 = [[NSMutableArray alloc] init];
     for (int i=0; i<wordLength; i++) {
         [guessedLettersArray replaceObjectAtIndex:i withObject:@""];
     }
