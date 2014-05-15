@@ -14,6 +14,7 @@
     
     // Buttons
     IBOutlet UIButton *newgameButton;
+    IBOutlet UIButton *menuButton;
     
     // Labels
     IBOutlet UILabel *triesLabel;
@@ -29,7 +30,10 @@
 
 @property(strong) NSMutableArray *lettersArray;
 @property BOOL evilGame;
+@property int wordLength;
+@property int endTries;
 
 - (IBAction)change:(id)sender;
+- (IBAction)menu:(id)sender;
 
 @end

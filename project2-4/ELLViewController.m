@@ -7,17 +7,18 @@
 //
 
 #import "ELLViewController.h"
+#import "ELLHomeController.h"
 
 @implementation ELLViewController
 @synthesize lettersArray;
 @synthesize evilGame;
+@synthesize wordLength;
+@synthesize endTries;
 
 // Create integer variables
 int fieldLettersSolved;
 int goodTries;
 int badTries;
-int endTries = 6;
-int wordLength = 5;
 
 // Create Mutable arrays
 NSMutableArray *wordLetterArray;
@@ -165,6 +166,11 @@ bool gameEnd;
     }
     
 }
+
+- (IBAction)menu:(id)sender {
+    ELLHomeController *menuController = [[ELLHomeController alloc] initWithNibName:@"Home" bundle:nil];
+        
+    [self presentViewController:menuController animated:YES completion:nil];}
 - (IBAction)change:(id)sender {
     if (gameEnd != true) {
         
@@ -329,6 +335,7 @@ bool gameEnd;
 
 - (void)viewDidUnload
 {
+    menuButton = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }

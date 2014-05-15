@@ -9,13 +9,19 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-
-
 @interface ELLHomeController : UIViewController {
     // Buttons
     IBOutlet UIButton *newNormalGameButton;
 }
 
+@property (weak, nonatomic) IBOutlet UILabel *wordLengthLabel;
+@property (weak, nonatomic) IBOutlet UILabel *triesLabel;
+@property int wordLength;
+@property int endTries;
+
+- (IBAction)endTries:(id)sender;
+- (IBAction)wordLength:(id)sender;
 - (IBAction)newNormalGame:(id)sender;
+- (IBAction)newEvilGame:(id)sender;
 
 @end
