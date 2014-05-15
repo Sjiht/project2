@@ -8,7 +8,7 @@
 
 #import "ELLAppDelegate.h"
 
-#import "ELLViewController.h"
+#import "ELLHomeController.h"
 
 @implementation ELLAppDelegate
 
@@ -20,9 +20,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        self.viewController = [[ELLViewController alloc] initWithNibName:@"ELLViewController_iPhone" bundle:nil];
-    } else {
-        self.viewController = [[ELLViewController alloc] initWithNibName:@"ELLViewController_iPad" bundle:nil];
+        self.viewController = [[ELLHomeController alloc] initWithNibName:@"Home" bundle:nil];
     }
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];

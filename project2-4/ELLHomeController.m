@@ -7,7 +7,16 @@
 //
 
 #import "ELLHomeController.h"
+#import "ELLViewController.h"
 
 @implementation ELLHomeController
+- (void)viewDidLoad {
+    NSLog(@"Loaded");
+}
 
+- (IBAction)newNormalGame:(id)sender {
+    ELLViewController *gameController = [[ELLViewController alloc] initWithNibName:@"ELLViewController_iPhone" bundle:nil];
+    [self.view addSubview:gameController.view];
+    NSLog(@"New normal game");
+}
 @end

@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CD27CE87191E54DD00EDE3C0 /* words.plist in Resources */ = {isa = PBXBuildFile; fileRef = CD27CE86191E54DD00EDE3C0 /* words.plist */; };
-		CD27CE89191E56B200EDE3C0 /* wordList.plist in Resources */ = {isa = PBXBuildFile; fileRef = CD27CE88191E56B200EDE3C0 /* wordList.plist */; };
 		CD31E31C157A28ED000FEC88 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD31E31B157A28ED000FEC88 /* UIKit.framework */; };
 		CD31E31E157A28ED000FEC88 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD31E31D157A28ED000FEC88 /* Foundation.framework */; };
 		CD31E320157A28ED000FEC88 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD31E31F157A28ED000FEC88 /* CoreGraphics.framework */; };
@@ -33,6 +31,9 @@
 		CD78F378191ABA6600BF1EED /* ELLHomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD78F377191ABA6600BF1EED /* ELLHomeController.m */; };
 		CD78F37C191ABA9300BF1EED /* ELLHighscoresController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD78F37B191ABA9300BF1EED /* ELLHighscoresController.m */; };
 		CDD4C973191AC8810067477F /* View.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDD4C972191AC8810067477F /* View.storyboard */; };
+		CDE28413192236F90070E478 /* wordList.plist in Resources */ = {isa = PBXBuildFile; fileRef = CDE28412192236F90070E478 /* wordList.plist */; };
+		CDE28415192237260070E478 /* words.plist in Resources */ = {isa = PBXBuildFile; fileRef = CDE28414192237260070E478 /* words.plist */; };
+		CDE2841B19223E4E0070E478 /* Home.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDE2841A19223E4E0070E478 /* Home.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,8 +47,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		CD27CE86191E54DD00EDE3C0 /* words.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = words.plist; sourceTree = "<group>"; };
-		CD27CE88191E56B200EDE3C0 /* wordList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = wordList.plist; sourceTree = "<group>"; };
 		CD31E317157A28ED000FEC88 /* project2-4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "project2-4.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD31E31B157A28ED000FEC88 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CD31E31D157A28ED000FEC88 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -80,6 +79,9 @@
 		CD78F37A191ABA9300BF1EED /* ELLHighscoresController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELLHighscoresController.h; sourceTree = "<group>"; };
 		CD78F37B191ABA9300BF1EED /* ELLHighscoresController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELLHighscoresController.m; sourceTree = "<group>"; };
 		CDD4C972191AC8810067477F /* View.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = View.storyboard; sourceTree = "<group>"; };
+		CDE28412192236F90070E478 /* wordList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = wordList.plist; sourceTree = "<group>"; };
+		CDE28414192237260070E478 /* words.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = words.plist; sourceTree = "<group>"; };
+		CDE2841A19223E4E0070E478 /* Home.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Home.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 			children = (
 				CD31E32A157A28ED000FEC88 /* ELLAppDelegate.h */,
 				CD31E330157A28EE000FEC88 /* ELLViewController_iPhone.xib */,
+				CDE2841A19223E4E0070E478 /* Home.xib */,
 				CD31E32B157A28ED000FEC88 /* ELLAppDelegate.m */,
 				CD31E32D157A28ED000FEC88 /* ELLViewController.h */,
 				CD31E32E157A28ED000FEC88 /* ELLViewController.m */,
@@ -168,8 +171,8 @@
 				CD31E323157A28ED000FEC88 /* project2-4-Info.plist */,
 				CD31E324157A28ED000FEC88 /* InfoPlist.strings */,
 				CD31E327157A28ED000FEC88 /* main.m */,
-				CD27CE88191E56B200EDE3C0 /* wordList.plist */,
-				CD27CE86191E54DD00EDE3C0 /* words.plist */,
+				CDE28412192236F90070E478 /* wordList.plist */,
+				CDE28414192237260070E478 /* words.plist */,
 				CD31E329157A28ED000FEC88 /* project2-4-Prefix.pch */,
 			);
 			name = "Supporting Files";
@@ -277,8 +280,9 @@
 				CD31E37D157AD420000FEC88 /* 6.png in Resources */,
 				CD31E37E157AD420000FEC88 /* 7.png in Resources */,
 				CDD4C973191AC8810067477F /* View.storyboard in Resources */,
-				CD27CE87191E54DD00EDE3C0 /* words.plist in Resources */,
-				CD27CE89191E56B200EDE3C0 /* wordList.plist in Resources */,
+				CDE28413192236F90070E478 /* wordList.plist in Resources */,
+				CDE28415192237260070E478 /* words.plist in Resources */,
+				CDE2841B19223E4E0070E478 /* Home.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

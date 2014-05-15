@@ -8,7 +8,6 @@
 
 #import "ELLViewController.h"
 
-
 @implementation ELLViewController
 @synthesize lettersArray;
 
@@ -16,8 +15,8 @@
 int fieldLettersSolved;
 int goodTries;
 int badTries;
-int endTries = 10;
-int wordLength = 7;
+int endTries = 6;
+int wordLength = 5;
 
 // Create Mutable arrays
 NSMutableArray *wordLetterArray;
@@ -179,7 +178,7 @@ bool evilGame = true;
         fieldLetter = [inputField.text substringWithRange:NSMakeRange(fieldLength-1, 1)];
         
         if ([[fieldLetter stringByTrimmingCharactersInSet:[NSCharacterSet letterCharacterSet]] isEqualToString:@""]) {
-                    
+            
             bool correctLetterCheck = false;
             
             for (int i=0; i<wordLength; i++) {

@@ -9,6 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface ELLHomeController : UIViewController
+@interface ELLHomeController : UIViewController {
+    // Buttons
+    IBOutlet UIButton *newNormalGameButton;
+}
+
+- (IBAction)newNormalGame:(id)sender;
 
 @end
