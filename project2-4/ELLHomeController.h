@@ -12,6 +12,8 @@
 @interface ELLHomeController : UIViewController {
     // Buttons
     IBOutlet UIButton *newNormalGameButton;
+    IBOutlet UIButton *newEvilGameButton;
+    IBOutlet UIButton *highscoresButton;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *wordLengthLabel;
@@ -23,5 +25,6 @@
 - (IBAction)wordLength:(id)sender;
 - (IBAction)newNormalGame:(id)sender;
 - (IBAction)newEvilGame:(id)sender;
+- (IBAction)highscores:(id)sender;
 
 @end

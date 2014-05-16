@@ -11,4 +11,6 @@
 
 @interface ELLHighscoresController : UIViewController
 
+    - (IBAction)menu:(id)sender;
+
 @end

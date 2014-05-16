@@ -8,6 +8,7 @@
 
 #import "ELLHomeController.h"
 #import "ELLViewController.h"
+#import "ELLHighscoresController.h"
 
 @implementation ELLHomeController
 @synthesize wordLengthLabel;
@@ -15,18 +16,27 @@
 @synthesize wordLength;
 @synthesize endTries;
 
+- (void)removeUserDefaults {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *dict = [defaults dictionaryRepresentation];
+    for (id key in dict) {
+        [defaults removeObjectForKey:key];
+    }
+    [defaults synchronize];
+}
+
 - (void)viewDidLoad {
-    NSLog(@"Loaded");
+
 }
 
 - (IBAction)wordLength:(UISlider *)sender {
-    float wordLengthFloat = sender.value * 7 + 3;
+    float wordLengthFloat = sender.value * 6 + 4;
     wordLength = (int) wordLengthFloat;
     wordLengthLabel.text = [NSString stringWithFormat:@"%d", wordLength];
 }
 
 - (IBAction)endTries:(UISlider *)sender {
-    float triesFloat = sender.value * 7 + 3;
+    float triesFloat = sender.value * 6 + 4;
     endTries = (int) triesFloat;
     triesLabel.text = [NSString stringWithFormat:@"%d", endTries];
 }
@@ -39,14 +49,14 @@
         gameController.endTries = endTries;
     }
     else {
-        gameController.endTries = 3;
+        gameController.endTries = 6;
     }
     
     if (wordLength > 0) {
         gameController.wordLength = wordLength;
     }
     else {
-        gameController.wordLength = 3;
+        gameController.wordLength = 6;
     }
     
     [self presentViewController:gameController animated:YES completion:nil];
@@ -60,18 +70,22 @@
         gameController.endTries = endTries;
     }
     else {
-        gameController.endTries = 3;
+        gameController.endTries = 6;
     }
     
     if (wordLength > 0) {
         gameController.wordLength = wordLength;
     }
     else {
-        gameController.wordLength = 3;
+        gameController.wordLength = 6;
     }
     
     [self presentViewController:gameController animated:YES completion:nil];
     NSLog(@"New evil game");
+}
+- (IBAction)highscores:(id)sender {
+    ELLHighscoresController *highscoresController = [[ELLHighscoresController alloc] initWithNibName:@"Highscores" bundle:nil];
+    [self presentViewController:highscoresController animated:YES completion:nil];
 }
 - (void)viewDidUnload {
     [self setWordLengthLabel:nil];

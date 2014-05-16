@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CD129FF51926333C00772349 /* Highscores.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD129FF41926333C00772349 /* Highscores.xib */; };
 		CD31E31C157A28ED000FEC88 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD31E31B157A28ED000FEC88 /* UIKit.framework */; };
 		CD31E31E157A28ED000FEC88 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD31E31D157A28ED000FEC88 /* Foundation.framework */; };
 		CD31E320157A28ED000FEC88 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD31E31F157A28ED000FEC88 /* CoreGraphics.framework */; };
@@ -15,7 +16,6 @@
 		CD31E32C157A28ED000FEC88 /* ELLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CD31E32B157A28ED000FEC88 /* ELLAppDelegate.m */; };
 		CD31E32F157A28EE000FEC88 /* ELLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD31E32E157A28ED000FEC88 /* ELLViewController.m */; };
 		CD31E332157A28EE000FEC88 /* ELLViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD31E330157A28EE000FEC88 /* ELLViewController_iPhone.xib */; };
-		CD31E335157A28EE000FEC88 /* ELLViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD31E333157A28EE000FEC88 /* ELLViewController_iPad.xib */; };
 		CD31E33D157A28EE000FEC88 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD31E33C157A28EE000FEC88 /* SenTestingKit.framework */; };
 		CD31E33E157A28EE000FEC88 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD31E31B157A28ED000FEC88 /* UIKit.framework */; };
 		CD31E33F157A28EE000FEC88 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD31E31D157A28ED000FEC88 /* Foundation.framework */; };
@@ -47,6 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CD129FF41926333C00772349 /* Highscores.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Highscores.xib; sourceTree = "<group>"; };
 		CD31E317157A28ED000FEC88 /* project2-4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "project2-4.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD31E31B157A28ED000FEC88 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CD31E31D157A28ED000FEC88 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -60,7 +61,6 @@
 		CD31E32D157A28ED000FEC88 /* ELLViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ELLViewController.h; sourceTree = "<group>"; };
 		CD31E32E157A28ED000FEC88 /* ELLViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ELLViewController.m; sourceTree = "<group>"; };
 		CD31E331157A28EE000FEC88 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ELLViewController_iPhone.xib; sourceTree = "<group>"; };
-		CD31E334157A28EE000FEC88 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ELLViewController_iPad.xib; sourceTree = "<group>"; };
 		CD31E33B157A28EE000FEC88 /* project2-4Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "project2-4Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD31E33C157A28EE000FEC88 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		CD31E344157A28EE000FEC88 /* project2-4Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "project2-4Tests-Info.plist"; sourceTree = "<group>"; };
@@ -142,9 +142,10 @@
 		CD31E321157A28ED000FEC88 /* project2-4 */ = {
 			isa = PBXGroup;
 			children = (
-				CD31E32A157A28ED000FEC88 /* ELLAppDelegate.h */,
 				CD31E330157A28EE000FEC88 /* ELLViewController_iPhone.xib */,
 				CDE2841A19223E4E0070E478 /* Home.xib */,
+				CD129FF41926333C00772349 /* Highscores.xib */,
+				CD31E32A157A28ED000FEC88 /* ELLAppDelegate.h */,
 				CD31E32B157A28ED000FEC88 /* ELLAppDelegate.m */,
 				CD31E32D157A28ED000FEC88 /* ELLViewController.h */,
 				CD31E32E157A28ED000FEC88 /* ELLViewController.m */,
@@ -152,7 +153,6 @@
 				CD78F377191ABA6600BF1EED /* ELLHomeController.m */,
 				CD78F37A191ABA9300BF1EED /* ELLHighscoresController.h */,
 				CD78F37B191ABA9300BF1EED /* ELLHighscoresController.m */,
-				CD31E333157A28EE000FEC88 /* ELLViewController_iPad.xib */,
 				CD31E322157A28ED000FEC88 /* Supporting Files */,
 			);
 			path = "project2-4";
@@ -271,7 +271,6 @@
 			files = (
 				CD31E326157A28ED000FEC88 /* InfoPlist.strings in Resources */,
 				CD31E332157A28EE000FEC88 /* ELLViewController_iPhone.xib in Resources */,
-				CD31E335157A28EE000FEC88 /* ELLViewController_iPad.xib in Resources */,
 				CD31E378157AD420000FEC88 /* 1.png in Resources */,
 				CD31E379157AD420000FEC88 /* 2.png in Resources */,
 				CD31E37A157AD420000FEC88 /* 3.png in Resources */,
@@ -283,6 +282,7 @@
 				CDE28413192236F90070E478 /* wordList.plist in Resources */,
 				CDE28415192237260070E478 /* words.plist in Resources */,
 				CDE2841B19223E4E0070E478 /* Home.xib in Resources */,
+				CD129FF51926333C00772349 /* Highscores.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,14 +358,6 @@
 				CD31E331157A28EE000FEC88 /* en */,
 			);
 			name = ELLViewController_iPhone.xib;
-			sourceTree = "<group>";
-		};
-		CD31E333157A28EE000FEC88 /* ELLViewController_iPad.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CD31E334157A28EE000FEC88 /* en */,
-			);
-			name = ELLViewController_iPad.xib;
 			sourceTree = "<group>";
 		};
 		CD31E345157A28EE000FEC88 /* InfoPlist.strings */ = {

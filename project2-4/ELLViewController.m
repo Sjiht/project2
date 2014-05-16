@@ -35,7 +35,6 @@ NSString *word = @"";
 bool gameEnd;
 
 - (NSString *)chooseNormalWord {
-    NSLog(@"TEST");
     // Put all the words from the plist in an array
     NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"wordList" ofType:@"plist"]];
     NSMutableArray *array2 = [dictionary valueForKey:@"array"];
@@ -170,7 +169,8 @@ bool gameEnd;
 - (IBAction)menu:(id)sender {
     ELLHomeController *menuController = [[ELLHomeController alloc] initWithNibName:@"Home" bundle:nil];
         
-    [self presentViewController:menuController animated:YES completion:nil];}
+    [self presentViewController:menuController animated:YES completion:nil];
+}
 - (IBAction)change:(id)sender {
     if (gameEnd != true) {
         
@@ -234,6 +234,19 @@ bool gameEnd;
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Congratulations!" message:    @"You won!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 [alert show];
                 gameEnd = true;
+                
+                int scoreInt = (int)(((float)wordLength / (float)endTries) * 1200 + ((endTries - badTries) * 10));
+                NSString *score = [NSString stringWithFormat:@"%d",scoreInt];
+                
+                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                
+                NSArray *oldScoreArray = [defaults objectForKey:@"score"];
+                NSMutableArray *newScoreArray = [NSMutableArray arrayWithArray:oldScoreArray];
+                
+                [newScoreArray addObject:score];
+                [defaults setObject:newScoreArray forKey:@"score"];
+                
+                [defaults synchronize];
             }
             
             // Show number of tries
@@ -331,6 +344,8 @@ bool gameEnd;
     // Display basic image
     UIImage *hangmanImageNow = [UIImage imageNamed:@"1.png"];
     [hangmanImage setImage:hangmanImageNow];
+    
+    [self newgame:nil];
 }
 
 - (void)viewDidUnload
