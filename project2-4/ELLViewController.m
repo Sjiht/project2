@@ -23,7 +23,8 @@ int badTries;
 // Create Mutable arrays
 NSMutableArray *wordLetterArray;
 NSMutableArray *guessedLettersArray;
-NSMutableArray *array2;
+NSMutableArray *wordsArray;
+NSMutableArray *lowerCasedArray;
 
 // Create empty string variables
 NSString *tempGoodLetters = @"";
@@ -35,123 +36,131 @@ NSString *word = @"";
 bool gameEnd;
 
 - (NSString *)chooseNormalWord {
-    // Put all the words from the plist in an array
-    NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"wordList" ofType:@"plist"]];
-    NSMutableArray *array2 = [dictionary valueForKey:@"array"];
-    NSMutableArray *array3 = [[NSMutableArray alloc] init];
-    for (NSString *key in array2) {
+    // Lowercase all the words
+    NSMutableArray *lowerCasedArray = [[NSMutableArray alloc] init];
+    for (NSString *key in wordsArray) {
         NSString *keyLowercase = [key lowercaseString];
         int length = [key length];
         if (length == wordLength) {
-            [array3 addObject:keyLowercase];
+            [lowerCasedArray addObject:keyLowercase];
         }
     }
-    // Pick a random word from the array
-    NSInteger randomIndex = arc4random() % [array3 count];
-    NSString *word = [array3 objectAtIndex:randomIndex];
+    
+    // Pick a random word from the lower cased wordlist
+    NSInteger randomIndex = arc4random() % [lowerCasedArray count];
+    NSString *word = [lowerCasedArray objectAtIndex:randomIndex];
     return word;
     NSLog(@"%@", word);
 }
 
 - (NSString *)chooseEvilWord {
-    NSMutableArray *array3 = [[NSMutableArray alloc] init];
-    for (NSString *key in array2) {
+    NSMutableArray *lowerCasedArray = [[NSMutableArray alloc] init];
+    for (NSString *key in wordsArray) {
         NSString *keyLowercase = [key lowercaseString];
         int length = [key length];
         if (length == wordLength) {
-            [array3 addObject:keyLowercase];
+            [lowerCasedArray addObject:keyLowercase];
         }
     }
     
+    // Get the user input
     int fieldLength = [inputField.text length];
     NSString *fieldLetter = @"";
     fieldLetter = [inputField.text substringWithRange:NSMakeRange(fieldLength-1, 1)];
     
-    NSMutableArray *array4 = [[NSMutableArray alloc] init];
-    NSMutableArray *array5 = [[NSMutableArray alloc] init];
-    NSMutableArray *array6 = [[NSMutableArray alloc] init];
-    NSMutableArray *array7 = [[NSMutableArray alloc] init];
-    NSMutableArray *array8 = [[NSMutableArray alloc] init];
+    // Define arrays for the algorithm
+    NSMutableArray *subSet1 = [[NSMutableArray alloc] init];
+    NSMutableArray *subSet2 = [[NSMutableArray alloc] init];
+    NSMutableArray *mainSet = [[NSMutableArray alloc] init];
+    NSMutableArray *letterPositionArray = [[NSMutableArray alloc] init];
+    NSMutableArray *letterArray = [[NSMutableArray alloc] init];
     NSMutableArray *wordlettersArray = [[NSMutableArray alloc] init];
+    
+    // Fill the letter-array with placeholders 
     for (int i=0; i<wordLength; i++) {
         [wordlettersArray insertObject:@"" atIndex:i];
     }
     
+    // Fill the letterposition-array with placeholders
     NSNumber *someNumber = [NSNumber numberWithInt:0];
     for (int i=0; i<wordLength; i++) {
-        [array7 addObject:someNumber];
+        [letterPositionArray addObject:someNumber];
     }
     
-    for (NSString *word in array3) {
+    // Loop through all the words
+    for (NSString *word in lowerCasedArray) {
+        // Patrick wat doen we hier? dit gebeurt toch ook al hierboven?
         for (int i=0; i<wordLength; i++) {
             [wordlettersArray replaceObjectAtIndex:i withObject:@""];
         }
+        // If the user has guessed a correct letter put the letter at the correct position(s)
         for (int i=0; i<wordLength; i++) {
             if ([guessedLettersArray containsObject:[word substringWithRange: NSMakeRange(i,1)]]) {
                 [wordlettersArray replaceObjectAtIndex:i withObject:[word substringWithRange: NSMakeRange(i,1)]];
             }
         }
         if ([guessedLettersArray isEqualToArray:wordlettersArray]) {
-            [array6 addObject:word];
+            [mainSet addObject:word];
         }
     }
     
-    if ([array6 count] != 0) {
-        array3 = array6;
+    if ([mainSet count] != 0) {
+        lowerCasedArray = mainSet;
     }
     
-    for (NSString *word in array3) {
+    for (NSString *word in lowerCasedArray) {
         if ([word rangeOfString:fieldLetter].location == NSNotFound) {
-            [array4 addObject:word];
+            [subSet1 addObject:word];
         }
         else if([word rangeOfString:fieldLetter].location != NSNotFound) {
-            [array5 addObject:word];
+            [subSet2 addObject:word];
         }
     }
 
-    if ([array4 count] >= [array5 count]) {
-        array2 = array4;
+    // Check which subset is bigger and then make that the main set
+    if ([subSet1 count] >= [subSet2 count]) {
+        wordsArray = subSet1;
     }
     else {
-        array2 = array5;
+        wordsArray = subSet2;
     }
     
-    for (NSString *word in array2) {
+    for (NSString *word in wordsArray) {
         for (int i=0; i<wordLength; i++) {
             if ([fieldLetter isEqualToString: [word substringWithRange: NSMakeRange(i,1)]]) {
-                NSString *nString = [array7 objectAtIndex:i];
+                NSString *nString = [letterPositionArray objectAtIndex:i];
                 int nInt = [nString intValue];
                 nInt++;
                 nString = [NSString stringWithFormat:@"%d",nInt];
-                [array7 replaceObjectAtIndex:i withObject:nString];
+                [letterPositionArray replaceObjectAtIndex:i withObject:nString];
             }
         }
     }
-    NSNumber *maxNum = [array7 valueForKeyPath:@"@max.intValue"];
+    NSNumber *maxNum = [letterPositionArray valueForKeyPath:@"@max.intValue"];
     NSString *number = [[NSString alloc] initWithFormat:@"%@", maxNum];
-    int index = [array7 indexOfObject:number];
+    int index = [letterPositionArray indexOfObject:number];
     
     if (index != 2147483647) {
-        for (NSString *word in array2) {
+        for (NSString *word in wordsArray) {
             // de i-de letter in het woord moet gelijk zijn aan fieldLetter
             if ([fieldLetter isEqualToString: [word substringWithRange: NSMakeRange(index,1)]]) {
-                [array8 addObject:word];
+                [letterArray addObject:word];
             }
         }
     }
     else {
-        array8 = array2;
+        letterArray = wordsArray;
     }
-    array2 = array8;
+    wordsArray = letterArray;
     
     
-    // Stop alle woorden in array8 die fieldLetter op de hoogste plaats van Array 7 hebben staan
+    // Stop alle woorden in letterArray die fieldLetter op de hoogste plaats van Array 7 hebben staan
     
     
 
     // Pick a random word from the array
-    NSInteger randomIndex = arc4random() % [array2 count];
-    NSString *word = [array2 objectAtIndex:randomIndex];
+    NSInteger randomIndex = arc4random() % [wordsArray count];
+    NSString *word = [wordsArray objectAtIndex:randomIndex];
     return word;
 }
 
@@ -285,14 +294,14 @@ bool gameEnd;
     goodTries = 0;
     badTries = 0;
     gameEnd = 0;
-    array2 = [[NSMutableArray alloc] init];
+    wordsArray = [[NSMutableArray alloc] init];
     for (int i=0; i<wordLength; i++) {
         [guessedLettersArray replaceObjectAtIndex:i withObject:@""];
     }
     
     // Put all the words from the plist in an array
     NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"wordList" ofType:@"plist"]];
-    array2 = [dictionary valueForKey:@"array"];
+    wordsArray = [dictionary valueForKey:@"array"];
     
     // Reset string variables
     goodLetters = @"";
@@ -318,7 +327,7 @@ bool gameEnd;
     
     // Put all the words from the plist in an array
     NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"wordList" ofType:@"plist"]];
-    array2 = [dictionary valueForKey:@"array"];
+    wordsArray = [dictionary valueForKey:@"array"];
     
     self.lettersArray = [[NSMutableArray alloc] init];
     int startWidth = 320 / wordLength - 30;
