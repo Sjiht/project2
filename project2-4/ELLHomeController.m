@@ -16,17 +16,8 @@
 @synthesize wordLength;
 @synthesize endTries;
 
-- (void)removeUserDefaults {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSDictionary *dict = [defaults dictionaryRepresentation];
-    for (id key in dict) {
-        [defaults removeObjectForKey:key];
-    }
-    [defaults synchronize];
-}
-
 - (void)viewDidLoad {
-
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background.png"]];
 }
 
 - (IBAction)wordLength:(UISlider *)sender {
@@ -59,8 +50,7 @@
         gameController.wordLength = 6;
     }
     
-    [self presentViewController:gameController animated:YES completion:nil];
-    NSLog(@"New normal game");
+    [self presentViewController:gameController animated:NO completion:nil];
 }
 
 - (IBAction)newEvilGame:(id)sender {
@@ -80,12 +70,11 @@
         gameController.wordLength = 6;
     }
     
-    [self presentViewController:gameController animated:YES completion:nil];
-    NSLog(@"New evil game");
+    [self presentViewController:gameController animated:NO completion:nil];
 }
 - (IBAction)highscores:(id)sender {
     ELLHighscoresController *highscoresController = [[ELLHighscoresController alloc] initWithNibName:@"Highscores" bundle:nil];
-    [self presentViewController:highscoresController animated:YES completion:nil];
+    [self presentViewController:highscoresController animated:NO completion:nil];
 }
 - (void)viewDidUnload {
     [self setWordLengthLabel:nil];

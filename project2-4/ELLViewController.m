@@ -178,7 +178,7 @@ bool gameEnd;
 - (IBAction)menu:(id)sender {
     ELLHomeController *menuController = [[ELLHomeController alloc] initWithNibName:@"Home" bundle:nil];
         
-    [self presentViewController:menuController animated:YES completion:nil];
+    [self presentViewController:menuController animated:NO completion:nil];
 }
 - (IBAction)change:(id)sender {
     if (gameEnd != true) {
@@ -239,24 +239,49 @@ bool gameEnd;
                     
             // If everything is solved
             if (![guessedLettersArray containsObject:@""]) {
-                // Show Alert (win)
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Congratulations!" message:    @"You won!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                [alert show];
                 gameEnd = true;
                 
-                int scoreInt = (int)(((float)wordLength / (float)endTries) * 1200 + ((endTries - badTries) * 10));
-                NSString *score = [NSString stringWithFormat:@"%d",scoreInt];
+                int scoreInt = (int)(((float)wordLength / (float)endTries) * 1200 + ((endTries - badTries) * 50));
+                if (evilGame == true) {
+                    scoreInt = scoreInt * 2.5;
+                }
+                
+                NSString *difficulty;
+                if (evilGame == true) {
+                    difficulty = @"1";
+                }
+                else {
+                    difficulty = @"0";
+                }
+                
+                NSDateFormatter *df = [[NSDateFormatter alloc] init];
+                [df setDateFormat:@"dd-MM-yyyy"];
+                NSString *myDate = [df stringFromDate:[NSDate date ]];
                 
                 NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
                 
                 NSArray *oldScoreArray = [defaults objectForKey:@"score"];
                 NSMutableArray *newScoreArray = [NSMutableArray arrayWithArray:oldScoreArray];
+                NSMutableDictionary *testDictionary = [[NSMutableDictionary alloc] init];
                 
-                [newScoreArray addObject:score];
+                NSNumber *pointsNumber = [NSNumber numberWithInt:scoreInt];
+                [testDictionary setObject:pointsNumber forKey:@"points"];
+                [testDictionary setObject:myDate forKey:@"date"];
+                [testDictionary setObject:difficulty forKey:@"evil"];
+                
+                NSMutableDictionary *md = [testDictionary mutableCopy];
+                
+                [newScoreArray addObject:md];
+                
                 [defaults setObject:newScoreArray forKey:@"score"];
                 
                 [defaults synchronize];
-            }
+                
+                NSString *winText = [NSString stringWithFormat:@"You won! Your score is %d", scoreInt];
+                
+                // Show Alert (win)
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Congratulations!" message:    winText delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alert show];            }
             
             // Show number of tries
             [triesLabel setText:[NSString stringWithFormat:@"%d / %d", badTries, endTries]];
@@ -319,6 +344,17 @@ bool gameEnd;
 {
     [super viewDidLoad];
     
+    if (evilGame == true) {
+        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background-evil.png"]];
+        triesLabel.textColor = [UIColor whiteColor];
+        badLettersLabel.textColor = [UIColor whiteColor];
+        triesTextLabel.textColor = [UIColor whiteColor];
+        badLettersTextLabel.textColor = [UIColor whiteColor];
+    }
+    else {
+        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background-normal.png"]];
+    }
+    
     guessedLettersArray = [[NSMutableArray alloc] init];
     // test
     for (int i=0; i<wordLength; i++) {
@@ -360,6 +396,8 @@ bool gameEnd;
 - (void)viewDidUnload
 {
     menuButton = nil;
+    badLettersTextLabel = nil;
+    triesTextLabel = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }

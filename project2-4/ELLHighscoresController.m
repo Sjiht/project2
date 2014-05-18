@@ -16,12 +16,13 @@
 - (void)viewDidLoad {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     tableData = [defaults objectForKey:@"score"];
-    NSLog(@"%@",tableData);
+    
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background.png"]];
     
     [super viewDidLoad];
     
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:nil ascending:NO];
-    tableData = [tableData sortedArrayUsingDescriptors:[NSArray arrayWithObject:sort]];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey: @"points" ascending: NO];
+    tableData = [tableData sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -29,8 +30,7 @@
     return [tableData count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *simpleTableIdentifier = @"SimpleTableItem";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
@@ -39,14 +39,43 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
     
-    cell.textLabel.text = [tableData objectAtIndex:indexPath.row];
+    NSMutableDictionary *cellData = [tableData objectAtIndex:indexPath.row];
+    
+    NSString *cellText = [NSString stringWithFormat:@"%@                   %@",[cellData objectForKey:@"points"],[cellData objectForKey:@"date"]];
+    
+    if ([cellText length] < 33) {
+        cellText = [NSString stringWithFormat:@"  %@",cellText];
+    }
+    cell.textLabel.text = cellText;
+    
+    NSString *difficultyString = [cellData objectForKey:@"evil"];
+    int difficultyInt = difficultyString.intValue;
+    if (difficultyInt == 1) {
+        cell.imageView.image = [UIImage imageNamed:@"evil.png"];
+    }
+    else {
+        cell.imageView.image = [UIImage imageNamed:@"normal.png"];
+    }
+    
     return cell;
+}
+
+- (IBAction)resetHighscores:(id)sender {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *dict = [defaults dictionaryRepresentation];
+    for (id key in dict) {
+        [defaults removeObjectForKey:key];
+    }
+    [defaults synchronize];
+    
+    ELLHighscoresController *highscoresController = [[ELLHighscoresController alloc] initWithNibName:@"Highscores" bundle:nil];
+    [self presentViewController:highscoresController animated:NO completion:nil];
 }
 
 - (IBAction)menu:(id)sender {
     ELLHomeController *menuController = [[ELLHomeController alloc] initWithNibName:@"Home" bundle:nil];
     
-    [self presentViewController:menuController animated:YES completion:nil];
+    [self presentViewController:menuController animated:NO completion:nil];
 }
 
 @end

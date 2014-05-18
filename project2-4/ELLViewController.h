@@ -19,6 +19,8 @@
     // Labels
     IBOutlet UILabel *triesLabel;
     IBOutlet UILabel *badLettersLabel;
+    IBOutlet UILabel *triesTextLabel;
+    IBOutlet UILabel *badLettersTextLabel;
     
     NSMutableArray *lettersArray;
     
