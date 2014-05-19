@@ -89,7 +89,6 @@ bool gameEnd;
     
     // Loop through all the words
     for (NSString *word in lowerCasedArray) {
-        // Patrick wat doen we hier? dit gebeurt toch ook al hierboven?
         for (int i=0; i<wordLength; i++) {
             [wordlettersArray replaceObjectAtIndex:i withObject:@""];
         }
@@ -104,10 +103,12 @@ bool gameEnd;
         }
     }
     
+    // If the mainset is not empty make the primary array the main set
     if ([mainSet count] != 0) {
         lowerCasedArray = mainSet;
     }
     
+    // Divide the words into subsets based on the user input
     for (NSString *word in lowerCasedArray) {
         if ([word rangeOfString:fieldLetter].location == NSNotFound) {
             [subSet1 addObject:word];
@@ -125,6 +126,8 @@ bool gameEnd;
         wordsArray = subSet2;
     }
     
+    
+    // Check the letter positions for the word and make sure only words with that letter position are added (for example words with ..a..a )
     for (NSString *word in wordsArray) {
         for (int i=0; i<wordLength; i++) {
             if ([fieldLetter isEqualToString: [word substringWithRange: NSMakeRange(i,1)]]) {
@@ -136,13 +139,15 @@ bool gameEnd;
             }
         }
     }
+    
     NSNumber *maxNum = [letterPositionArray valueForKeyPath:@"@max.intValue"];
     NSString *number = [[NSString alloc] initWithFormat:@"%@", maxNum];
     int index = [letterPositionArray indexOfObject:number];
     
+    // Check if the index is found
     if (index != 2147483647) {
         for (NSString *word in wordsArray) {
-            // de i-de letter in het woord moet gelijk zijn aan fieldLetter
+            // check if the letter on the position i is the same as the user input an
             if ([fieldLetter isEqualToString: [word substringWithRange: NSMakeRange(index,1)]]) {
                 [letterArray addObject:word];
             }
@@ -152,11 +157,6 @@ bool gameEnd;
         letterArray = wordsArray;
     }
     wordsArray = letterArray;
-    
-    
-    // Stop alle woorden in letterArray die fieldLetter op de hoogste plaats van Array 7 hebben staan
-    
-    
 
     // Pick a random word from the array
     NSInteger randomIndex = arc4random() % [wordsArray count];
@@ -165,6 +165,7 @@ bool gameEnd;
 }
 
 - (NSString *)checkWord {
+    // check if a word is not defined and choose a new word, else keep the current word
     if (word == @"") {
         word = [self chooseNormalWord];
         return word;
@@ -176,13 +177,16 @@ bool gameEnd;
 }
 
 - (IBAction)menu:(id)sender {
+    // Menu button to go back to the home view
     ELLHomeController *menuController = [[ELLHomeController alloc] initWithNibName:@"Home" bundle:nil];
         
     [self presentViewController:menuController animated:NO completion:nil];
 }
 - (IBAction)change:(id)sender {
+    // Check if the game is still in progress
     if (gameEnd != true) {
         
+        // Check if the users wants the evil mode or the normal mode
         if (self.evilGame == true) {
             word = [self chooseEvilWord];
         }
@@ -190,25 +194,30 @@ bool gameEnd;
             word = [self checkWord];
         }
         
+        // Get the user input 
         int fieldLength = [inputField.text length];
         NSString *fieldLetter = @"";
         fieldLetter = [inputField.text substringWithRange:NSMakeRange(fieldLength-1, 1)];
         
+        // Check if the user input is a letter
         if ([[fieldLetter stringByTrimmingCharactersInSet:[NSCharacterSet letterCharacterSet]] isEqualToString:@""]) {
-            
+            // Start by saying if the letter is not correct
             bool correctLetterCheck = false;
             
+            // Check if the user input is a letter that is the same as a letter in the word
             for (int i=0; i<wordLength; i++) {
                 NSString *wordLetter = [word substringWithRange:NSMakeRange(i, 1)];
                     
-                // If current letter is equal to this particular letter
+                // If current letter is equal to this particular letter in the word
                 if ([fieldLetter isEqualToString:(wordLetter)]) {
                     if ([goodLetters rangeOfString:fieldLetter].location == NSNotFound) {
                         fieldLettersSolved++;
                         goodTries++;
                         
+                        // Add the letter to the list of good letters
                         tempGoodLetters = [NSString stringWithFormat:@"%@%@", goodLetters, fieldLetter];
                     }
+                    // The user has provided a correct letter
                     correctLetterCheck = true;
                     [guessedLettersArray replaceObjectAtIndex:i withObject:wordLetter];
                 }
@@ -216,18 +225,20 @@ bool gameEnd;
             goodLetters = tempGoodLetters;
             
             int i = 0;
+            // Update the buttons with the guessed letters
             for (NSString *guessedLetter in guessedLettersArray) {
                 [[self.lettersArray objectAtIndex:i] setTitle:guessedLetter forState:(UIControlStateNormal)];
                 i++;
             }
             
+            // If the user has provided a wrong letter
             if (correctLetterCheck == false) {
                 // Check if pressed letter has already been pressed
                 if ([badLetters rangeOfString:fieldLetter].location == NSNotFound) {
                     badTries++;
                     badLetters = [NSString stringWithFormat:@"%@%@", badLetters, fieldLetter];
                 }
-                // Display next image
+                // Display next image, starting if the user has 6 guesses left
                 for (int i=1; i<=6; i++) {
                     if (badTries - (endTries - 6) == i) {
                         NSString *hangmanImageName = [NSString stringWithFormat:@"%d.png", i + 1];
@@ -241,11 +252,13 @@ bool gameEnd;
             if (![guessedLettersArray containsObject:@""]) {
                 gameEnd = true;
                 
+                // Calculate the score
                 int scoreInt = (int)(((float)wordLength / (float)endTries) * 1200 + ((endTries - badTries) * 50));
                 if (evilGame == true) {
                     scoreInt = scoreInt * 2.5;
                 }
                 
+                // Format the difficulty to insert with the score
                 NSString *difficulty;
                 if (evilGame == true) {
                     difficulty = @"1";
@@ -254,32 +267,44 @@ bool gameEnd;
                     difficulty = @"0";
                 }
                 
+                // Get the date to insert with the score
                 NSDateFormatter *df = [[NSDateFormatter alloc] init];
                 [df setDateFormat:@"dd-MM-yyyy"];
                 NSString *myDate = [df stringFromDate:[NSDate date ]];
                 
+                // Get the NSUserDefaults
                 NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
                 
+                // Get the previous highscores
                 NSArray *oldScoreArray = [defaults objectForKey:@"score"];
+                
+                // Combine the previous highscores with the array that will contain the new highscore
                 NSMutableArray *newScoreArray = [NSMutableArray arrayWithArray:oldScoreArray];
+               
+                // Make a dictionary to insert into the NSUserDefaults
                 NSMutableDictionary *testDictionary = [[NSMutableDictionary alloc] init];
                 
+                // Update the dictionary
                 NSNumber *pointsNumber = [NSNumber numberWithInt:scoreInt];
                 [testDictionary setObject:pointsNumber forKey:@"points"];
                 [testDictionary setObject:myDate forKey:@"date"];
                 [testDictionary setObject:difficulty forKey:@"evil"];
                 
+                // Make a copy to make sure the previous dictionaries in the array are not modified
                 NSMutableDictionary *md = [testDictionary mutableCopy];
                 
+                // Add the dictionary(conatining the highscore) to the array
                 [newScoreArray addObject:md];
                 
+                // Add the array with all the highscores to NSUserDefaults
                 [defaults setObject:newScoreArray forKey:@"score"];
                 
                 [defaults synchronize];
                 
+                // Make the string that displays when the game is won
                 NSString *winText = [NSString stringWithFormat:@"You won! Your score is %d", scoreInt];
                 
-                // Show Alert (win)
+                // Show the win alert 
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Congratulations!" message:    winText delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 [alert show];            }
             
@@ -344,6 +369,7 @@ bool gameEnd;
 {
     [super viewDidLoad];
     
+    // Change the background and letter color if the game is evil
     if (evilGame == true) {
         self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background-evil.png"]];
         triesLabel.textColor = [UIColor whiteColor];
@@ -351,12 +377,13 @@ bool gameEnd;
         triesTextLabel.textColor = [UIColor whiteColor];
         badLettersTextLabel.textColor = [UIColor whiteColor];
     }
+    // Else only change the background
     else {
         self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background-normal.png"]];
     }
     
     guessedLettersArray = [[NSMutableArray alloc] init];
-    // test
+    // Fill the guessed letters array with placeholders
     for (int i=0; i<wordLength; i++) {
         [guessedLettersArray insertObject:@"" atIndex:i];
     }
@@ -365,6 +392,7 @@ bool gameEnd;
     NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"wordList" ofType:@"plist"]];
     wordsArray = [dictionary valueForKey:@"array"];
     
+    // Make the buttons that can hold the letters
     self.lettersArray = [[NSMutableArray alloc] init];
     int startWidth = 320 / wordLength - 30;
     int x = startWidth / 2;
