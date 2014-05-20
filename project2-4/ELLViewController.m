@@ -54,6 +54,7 @@ bool gameEnd;
 }
 
 - (NSString *)chooseEvilWord {
+    // Lowercase all the words
     NSMutableArray *lowerCasedArray = [[NSMutableArray alloc] init];
     for (NSString *key in wordsArray) {
         NSString *keyLowercase = [key lowercaseString];
@@ -76,7 +77,7 @@ bool gameEnd;
     NSMutableArray *letterArray = [[NSMutableArray alloc] init];
     NSMutableArray *wordlettersArray = [[NSMutableArray alloc] init];
     
-    // Fill the letter-array with placeholders 
+    // Fill the wordLetter-array with placeholders 
     for (int i=0; i<wordLength; i++) {
         [wordlettersArray insertObject:@"" atIndex:i];
     }
@@ -140,6 +141,7 @@ bool gameEnd;
         }
     }
     
+    // Get the highest index (for example: 1,3,2,1 it gets 3 so the algorithm picks only words with a letter on the position 3
     NSNumber *maxNum = [letterPositionArray valueForKeyPath:@"@max.intValue"];
     NSString *number = [[NSString alloc] initWithFormat:@"%@", maxNum];
     int index = [letterPositionArray indexOfObject:number];
@@ -147,7 +149,7 @@ bool gameEnd;
     // Check if the index is found
     if (index != 2147483647) {
         for (NSString *word in wordsArray) {
-            // check if the letter on the position i is the same as the user input an
+            // Check if the letter on the position i is the same as the user input an
             if ([fieldLetter isEqualToString: [word substringWithRange: NSMakeRange(index,1)]]) {
                 [letterArray addObject:word];
             }
@@ -165,7 +167,7 @@ bool gameEnd;
 }
 
 - (NSString *)checkWord {
-    // check if a word is not defined and choose a new word, else keep the current word
+    // Check if a word is not defined and choose a new word, else keep the current word
     if (word == @"") {
         word = [self chooseNormalWord];
         return word;
@@ -201,7 +203,7 @@ bool gameEnd;
         
         // Check if the user input is a letter
         if ([[fieldLetter stringByTrimmingCharactersInSet:[NSCharacterSet letterCharacterSet]] isEqualToString:@""]) {
-            // Start by saying if the letter is not correct
+            // Start by saying that the letter is not correct
             bool correctLetterCheck = false;
             
             // Check if the user input is a letter that is the same as a letter in the word
