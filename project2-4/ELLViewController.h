@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ELLNormalGame.h"
+#import "ELLEvilGame.h"
 
 @interface ELLViewController : UIViewController {
     // Text Fields

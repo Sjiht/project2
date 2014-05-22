@@ -34,9 +34,10 @@
 		CD6BD8AC1929520300C1E6FA /* normal.png in Resources */ = {isa = PBXBuildFile; fileRef = CD6BD8AA1929520300C1E6FA /* normal.png */; };
 		CD6BD8AD1929520300C1E6FA /* evil.png in Resources */ = {isa = PBXBuildFile; fileRef = CD6BD8AB1929520300C1E6FA /* evil.png */; };
 		CD6BD8B51929536100C1E6FA /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = CD6BD8B41929536100C1E6FA /* logo.png */; };
+		CD6BD8BC192E830300C1E6FA /* ELLEvilGame.m in Sources */ = {isa = PBXBuildFile; fileRef = CD6BD8BB192E830300C1E6FA /* ELLEvilGame.m */; };
+		CD6BD8C0192E833200C1E6FA /* ELLNormalGame.m in Sources */ = {isa = PBXBuildFile; fileRef = CD6BD8BF192E833200C1E6FA /* ELLNormalGame.m */; };
 		CD78F378191ABA6600BF1EED /* ELLHomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD78F377191ABA6600BF1EED /* ELLHomeController.m */; };
 		CD78F37C191ABA9300BF1EED /* ELLHighscoresController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD78F37B191ABA9300BF1EED /* ELLHighscoresController.m */; };
-		CDD4C973191AC8810067477F /* View.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDD4C972191AC8810067477F /* View.storyboard */; };
 		CDE28413192236F90070E478 /* wordList.plist in Resources */ = {isa = PBXBuildFile; fileRef = CDE28412192236F90070E478 /* wordList.plist */; };
 		CDE28415192237260070E478 /* words.plist in Resources */ = {isa = PBXBuildFile; fileRef = CDE28414192237260070E478 /* words.plist */; };
 		CDE2841B19223E4E0070E478 /* Home.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDE2841A19223E4E0070E478 /* Home.xib */; };
@@ -86,11 +87,14 @@
 		CD6BD8AA1929520300C1E6FA /* normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = normal.png; sourceTree = "<group>"; };
 		CD6BD8AB1929520300C1E6FA /* evil.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = evil.png; sourceTree = "<group>"; };
 		CD6BD8B41929536100C1E6FA /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		CD6BD8BA192E830300C1E6FA /* ELLEvilGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELLEvilGame.h; sourceTree = "<group>"; };
+		CD6BD8BB192E830300C1E6FA /* ELLEvilGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELLEvilGame.m; sourceTree = "<group>"; };
+		CD6BD8BE192E833200C1E6FA /* ELLNormalGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELLNormalGame.h; sourceTree = "<group>"; };
+		CD6BD8BF192E833200C1E6FA /* ELLNormalGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELLNormalGame.m; sourceTree = "<group>"; };
 		CD78F376191ABA6600BF1EED /* ELLHomeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELLHomeController.h; sourceTree = "<group>"; };
 		CD78F377191ABA6600BF1EED /* ELLHomeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELLHomeController.m; sourceTree = "<group>"; };
 		CD78F37A191ABA9300BF1EED /* ELLHighscoresController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELLHighscoresController.h; sourceTree = "<group>"; };
 		CD78F37B191ABA9300BF1EED /* ELLHighscoresController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELLHighscoresController.m; sourceTree = "<group>"; };
-		CDD4C972191AC8810067477F /* View.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = View.storyboard; sourceTree = "<group>"; };
 		CDE28412192236F90070E478 /* wordList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = wordList.plist; sourceTree = "<group>"; };
 		CDE28414192237260070E478 /* words.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = words.plist; sourceTree = "<group>"; };
 		CDE2841A19223E4E0070E478 /* Home.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Home.xib; sourceTree = "<group>"; };
@@ -123,7 +127,6 @@
 		CD31E30C157A28ED000FEC88 = {
 			isa = PBXGroup;
 			children = (
-				CDD4C972191AC8810067477F /* View.storyboard */,
 				CD31E321157A28ED000FEC88 /* project2-4 */,
 				CD31E342157A28EE000FEC88 /* project2-4Tests */,
 				CD31E31A157A28ED000FEC88 /* Frameworks */,
@@ -159,10 +162,14 @@
 				CD129FF41926333C00772349 /* Highscores.xib */,
 				CD31E32A157A28ED000FEC88 /* ELLAppDelegate.h */,
 				CD31E32B157A28ED000FEC88 /* ELLAppDelegate.m */,
-				CD31E32D157A28ED000FEC88 /* ELLViewController.h */,
-				CD31E32E157A28ED000FEC88 /* ELLViewController.m */,
 				CD78F376191ABA6600BF1EED /* ELLHomeController.h */,
 				CD78F377191ABA6600BF1EED /* ELLHomeController.m */,
+				CD31E32D157A28ED000FEC88 /* ELLViewController.h */,
+				CD31E32E157A28ED000FEC88 /* ELLViewController.m */,
+				CD6BD8BE192E833200C1E6FA /* ELLNormalGame.h */,
+				CD6BD8BF192E833200C1E6FA /* ELLNormalGame.m */,
+				CD6BD8BA192E830300C1E6FA /* ELLEvilGame.h */,
+				CD6BD8BB192E830300C1E6FA /* ELLEvilGame.m */,
 				CD78F37A191ABA9300BF1EED /* ELLHighscoresController.h */,
 				CD78F37B191ABA9300BF1EED /* ELLHighscoresController.m */,
 				CD31E322157A28ED000FEC88 /* Supporting Files */,
@@ -296,7 +303,6 @@
 				CD31E37C157AD420000FEC88 /* 5.png in Resources */,
 				CD31E37D157AD420000FEC88 /* 6.png in Resources */,
 				CD31E37E157AD420000FEC88 /* 7.png in Resources */,
-				CDD4C973191AC8810067477F /* View.storyboard in Resources */,
 				CDE28413192236F90070E478 /* wordList.plist in Resources */,
 				CDE28415192237260070E478 /* words.plist in Resources */,
 				CDE2841B19223E4E0070E478 /* Home.xib in Resources */,
@@ -346,6 +352,8 @@
 				CD31E32F157A28EE000FEC88 /* ELLViewController.m in Sources */,
 				CD78F378191ABA6600BF1EED /* ELLHomeController.m in Sources */,
 				CD78F37C191ABA9300BF1EED /* ELLHighscoresController.m in Sources */,
+				CD6BD8BC192E830300C1E6FA /* ELLEvilGame.m in Sources */,
+				CD6BD8C0192E833200C1E6FA /* ELLNormalGame.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
