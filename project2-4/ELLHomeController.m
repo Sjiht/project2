@@ -18,6 +18,7 @@
 
 - (void)viewDidLoad {
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background.png"]];
+    NSLog(@"Gelanden");
 }
 
 - (IBAction)wordLength:(UISlider *)sender {
